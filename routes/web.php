@@ -18,3 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/parsers', 'ParserController@index');
+Route::post('/parsers/drom', 'ParserController@DromParser');
+Route::get('/parsers/drom', 'ParserController@LinkToDrom');
+/*
+Route::get('/parsers/autodoc', 'ParserController@arpartsAutodoc');
+Route::post('/parsers/autodoc', 'ParserController@arpartsAutodocParser');
+Route::get('/parsers/drom', 'ParserController@DromParser');
+Route::post('/parsers/drom', 'ParserController@arpartsDromParser');*/

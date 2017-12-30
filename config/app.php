@@ -176,6 +176,12 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+	
+		//Simple HTML DOM parser
+		Yangqi\Htmldom\HtmldomServiceProvider::class,
+	
+		//Validator
+		Illuminate\Validation\ValidationServiceProvider::class,
 
     ],
 
@@ -225,6 +231,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+		'Htmldom' => Yangqi\Htmldom\Htmldom::class,
+		'Validator' => Illuminate\Support\Facades\Validator::class,
 
     ],
 
