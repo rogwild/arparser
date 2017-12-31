@@ -18,7 +18,7 @@ class CreateCarsTable extends Migration
 			$table->string('alias');
 			$table->string('title');
 			$table->string('translate');
-			$table->integer('points');
+			$table->integer('points')->nullable();
             $table->timestamps();
         });
     }

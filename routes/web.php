@@ -22,6 +22,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/parsers', 'ParserController@index');
 Route::post('/parsers/drom', 'ParserController@DromParser');
 Route::get('/parsers/drom', 'ParserController@LinkToDrom');
+Route::get('/parsers/cars', 'ParserController@CarsTable');
+Route::post('/parsers/cars/{id}/translate', 'ParserController@CarTranslate');
+Route::get('/parsers/cars/{id}', 'ParserController@CarPage');
+
+
 /*
 Route::get('/parsers/autodoc', 'ParserController@arpartsAutodoc');
 Route::post('/parsers/autodoc', 'ParserController@arpartsAutodocParser');

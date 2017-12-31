@@ -131,4 +131,44 @@ class ParserController extends Controller
             return redirect('/login');
         }
     }
+	
+	//База автомобилей
+    public function CarsTable()
+    {
+		if (Auth::check()) {
+			$cars = Car::orderBy('title', 'desc')->get();
+			return view('parser.CarsTable', compact('cars'));
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
+	//Страница из
+    public function CarPage($id, Request $request)
+    {
+		if (Auth::check()) {
+			$car = Car::find($id);
+			$action = action('ParserController@CarTranslate', $id);
+			return view('parser.CarPage', compact('car', 'action'));
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
+	//Изменить транскрипцию названия автомобиля
+    public function CarTranslate(Car $car, $id, Request $request)
+    {
+		if (Auth::check()) {
+			$car = Car::find($id);
+			$translate = $request['translate'];
+			$car->translate=$translate;
+				$car->save();
+			return redirect()->back();
+		}
+		else {
+			return redirect('/login');
+		}
+    }
 }
