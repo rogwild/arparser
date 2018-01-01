@@ -128,7 +128,7 @@ class ParserController extends Controller
                                         'number' => $number,
                                         'price_main' => $price_main,
                                         'image' => $image]);
-			
+				$part -> save();
 				return view('parser.GetFromDrom', compact('link','title','image', 'price', 'number', 'models', 'engine', 'category', 'title_promo', 'price_main', 'parsed_engine', 'titleOfAd'));
         }
         else {
