@@ -18,14 +18,20 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+//страница с выбором парсера
 Route::get('/parsers', 'ParserController@index');
+//страница парсера с Дром
 Route::post('/parsers/drom', 'ParserController@DromParser');
 Route::get('/parsers/drom', 'ParserController@LinkToDrom');
+//страница с таблицей автомобилей
 Route::get('/parsers/cars', 'ParserController@CarsTable');
 Route::post('/parsers/cars/{id}/translate', 'ParserController@CarTranslate');
 Route::get('/parsers/cars/{id}', 'ParserController@CarPage');
-
+//страница с таблицей деталей
+Route::get('/parsers/parts', 'ParserController@PartsTable');
+Route::post('/parsers/parts/{id}/edit', 'ParserController@PartEdit');
+Route::get('/parsers/parts/{id}/delete', 'ParserController@PartDelete');
+Route::get('/parsers/parts/{id}', 'ParserController@PartPage');
 
 /*
 Route::get('/parsers/autodoc', 'ParserController@arpartsAutodoc');

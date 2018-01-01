@@ -84,7 +84,8 @@
 
                 <div class="links">
                     <a href="/parsers">Парсеры</a>
-                    <a href="/parsers">Автомобили</a>
+                    <a href="/parsers/cars">Автомобили</a>
+                    <a href="/parsers/parts">Детали</a>
                 </div>
             </div>
         </div>

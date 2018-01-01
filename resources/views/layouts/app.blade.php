@@ -48,6 +48,7 @@
                         @else
                             <li><a href="/parsers">Парсеры</a></li>
                             <li><a href="/parsers/cars">Автомобили</a></li>
+                            <li><a href="/parsers/parts">Детали</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>

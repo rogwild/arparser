@@ -17,6 +17,7 @@ class CreatePartsTable extends Migration
             $table->increments('id');
 			$table->string('models');
 			$table->string('category');
+			$table->string('avito_category')->nullable();
 			$table->string('titleOfAd');
 			$table->integer('price');
 			$table->string('parsed_engine');

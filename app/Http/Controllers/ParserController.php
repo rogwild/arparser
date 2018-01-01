@@ -108,6 +108,8 @@ class ParserController extends Controller
 					}
 				}
 				$withoutEndEngines = array_unique($withoutEndEngines); //только цникальные значения в массиве
+				$enginesToDB = implode(",", $withoutEndEngines); //Двигатели, которые пойдут в БД
+				$modelsToDB = implode(",",$models); // Модели, которые пойдут в БД
 				$firstMark = current($models); //первый элемент марки и модели
 				$firstMark = $firstMark.' '; //пробел в конце марки и модели
 				$firstEngines = array_slice($withoutEndEngines,0,2); //получаем первые 2 двигателя
@@ -115,13 +117,15 @@ class ParserController extends Controller
 				$titleOfAd = $title.$firstMark.'('.$firstEngines.')'; //создаем название
 				
 				//Добавляем в БД
-				$part = Part::create([	'models' => '$models', 
+				$part = Part::firstOrNew([	
+										'link' => $link
+										], [ 
+										'models' => $modelsToDB, 
 										'category' => $category, 
                                         'titleOfAd' => $titleOfAd, 
                                         'price' => $price,
-										'parsed_engine' => '$parsed_engine',
-                                        'number' => '$number', 
-                                        'link' => $link, 
+										'parsed_engine' => $enginesToDB,
+                                        'number' => $number,
                                         'price_main' => $price_main,
                                         'image' => $image]);
 			
@@ -130,6 +134,119 @@ class ParserController extends Controller
         else {
             return redirect('/login');
         }
+    }
+	
+	//База объявлений
+    public function PartsTable()
+    {
+		if (Auth::check()) {
+			$parts = Part::orderBy('created_at', 'desc')->get();
+			return view('parser.PartsTable', compact('parts'));
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
+	//Страница из
+    public function PartPage($id, Request $request)
+    {
+		if (Auth::check()) {
+			$part = Part::find($id);
+			$action = action('ParserController@PartEdit', $id);
+			return view('parser.PartPage', compact('part', 'action'));
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
+	//Изменить транскрипцию названия автомобиля
+    public function PartEdit(Part $part, $id, Request $request)
+    {
+		if (Auth::check()) {
+			$user = Auth::user();
+			if ($user -> type == 'admin') {
+				$part = Part::find($id);
+				$newTitle = $request['newTitle'];
+				$newImage = $request['newImage'];
+				$newModels = $request['newModels'];
+				$newCategory = $request['newCategory'];
+				$newPrice = $request['newPrice'];
+				$newPrice_main = $request['newPrice_main'];
+				$newLink = $request['newLink'];
+				$newParsed_engine = $request['newParsed_engine'];
+				$newNumber = $request['newNumber'];
+				$newAvito_category = $request['newAvito_category'];
+				if ($newTitle != NULL) {
+					$part->titleOfAd=$newTitle;
+						$part->save();
+				}
+				if ($newImage != NULL) {
+					$part->image=$newImage;
+						$part->save();
+				}
+				if ($newModels != NULL) {
+					$part->models=$newModels;
+						$part->save();
+				}
+				if ($newCategory != NULL) {
+					$part->category=$newCategory;
+						$part->save();
+				}
+				if ($newPrice != NULL) {
+					$part->price=$newPrice;
+						$part->save();
+				}
+				if ($newLink != NULL) {
+					$part->link=$newLink;
+						$part->save();
+				}
+				if ($newPrice_main != NULL) {
+					$part->price_main=$newPrice_main;
+						$part->save();
+				}
+				if ($newParsed_engine != NULL) {
+					$part->parsed_engine=$newParsed_engine;
+						$part->save();
+				}
+				if ($newNumber != NULL) {
+					$part->number=$newNumber;
+						$part->save();
+				}
+				if ($newAvito_category != NULL) {
+					$part->avito_category=$newAvito_category;
+						$part->save();
+				}
+				return redirect()->back();
+			}
+			else {
+				return redirect()->back();
+			}
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
+	//Изменить транскрипцию названия автомобиля
+    public function PartDelete(Part $part, $id, Request $request)
+    {
+		if (Auth::check()) {
+			$user = Auth::user();
+			if ($user -> type == 'admin') {
+				$part = Part::find($id);
+				$part->delete();
+				return redirect()->back();
+			}
+			else {
+				return redirect()->back();
+			}
+			
+		}
+		else {
+			return redirect('/login');
+		}
     }
 	
 	//База автомобилей
@@ -144,7 +261,7 @@ class ParserController extends Controller
 		}
     }
 	
-	//Страница из
+	//Страница автомобиля
     public function CarPage($id, Request $request)
     {
 		if (Auth::check()) {
