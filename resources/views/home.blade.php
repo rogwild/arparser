@@ -17,6 +17,7 @@
                     <h4><a href="/parsers">Парсеры</a></h4>
                     <h4><a href="/parsers/cars">Автомобили</a></h4>
                     <h4><a href="/parsers/parts">Детали <span class="badge badge-success">Новинка</span></a></h4>
+                    <h4><a href="/parts/xml">XML <span class="badge badge-success">BETA</span></a></a></h4>
                 </div>
             </div>
         </div>
