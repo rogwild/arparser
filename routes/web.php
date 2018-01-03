@@ -29,10 +29,12 @@ Route::post('/parsers/cars/{id}/translate', 'ParserController@CarTranslate');
 Route::get('/parsers/cars/{id}', 'ParserController@CarPage');
 //страница с таблицей деталей
 Route::get('/parsers/parts', 'ParserController@PartsTable');
+Route::get('/parsers/parts/{id}', 'ParserController@IndexPartPage');
 Route::post('/parsers/parts/{id}/edit', 'ParserController@PartEdit');
 Route::get('/parsers/parts/{id}/delete', 'ParserController@PartDelete');
-Route::get('/parsers/parts/{id}', 'ParserController@PartPage');
+Route::get('/parsers/parts/{id}/edit', 'ParserController@PartPage');
 
+Route::get('/parts/xml', 'ParserController@PartXML');
 /*
 Route::get('/parsers/autodoc', 'ParserController@arpartsAutodoc');
 Route::post('/parsers/autodoc', 'ParserController@arpartsAutodocParser');

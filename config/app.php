@@ -182,6 +182,9 @@ return [
 	
 		//Validator
 		Illuminate\Validation\ValidationServiceProvider::class,
+	
+		//XML response
+		XmlResponse\XmlResponseServiceProvider::class
 
     ],
 

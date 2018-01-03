@@ -25,8 +25,14 @@
 				  @foreach ($parts as $part)
 					<tr>
 					  <td><img src="{{ $part->image }}" alt="" class="img-responsive"></td>
-					  <td>{{ $part->titleOfAd }}</td>
-					  <td>{{ $part->models }}</td>
+					  <td><a href="parts/{{ $part->id }}">{{ $part->titleOfAd }}</a></td>
+					  <td>
+					  	<ul>
+					  	@foreach ($translations as $translation)
+					  		<li>{{ $translation }}</li>
+						@endforeach
+						</ul>
+					  </td>
 					  <td>{{ $part->category }}</td>
 					  <td>{{ $part->avito_category }}</td>
 					  <td>{{ $part->price }}</td>
@@ -35,7 +41,7 @@
 					  <td>{{ $part->number }}</td>
 					  <td><a href="{{ $part->link }}">DROM.ru</a></td>
 					  <td>
-					  	<a href="parts/{{ $part->id }}" class="btn btn-default btn-xs">ИЗМЕНИТЬ</a>
+					  	<a href="parts/{{ $part->id }}/edit" class="btn btn-default btn-xs">ИЗМЕНИТЬ</a>
 					  	<a href="parts/{{ $part->id }}/delete" class="btn btn-danger btn-xs">УДАЛИТЬ</a>
 					  </td>
 					</tr>

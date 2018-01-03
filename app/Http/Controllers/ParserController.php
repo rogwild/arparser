@@ -5,6 +5,7 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Part;
 use App\Car;
+use App\User;
 
 class ParserController extends Controller
 {
@@ -40,6 +41,7 @@ class ParserController extends Controller
             $link = $request['html'];
 			$html = new \Htmldom($link);
             $title_promo=$html->find('h1.subject span', 0)->plaintext;
+			$title_promo=trim($title_promo);
 				$image=$html->find('link[rel="image_src"]', 0)->href;
 				$image=substr($image,0,-10).'_bulletin.jpg';
 				$types = array();
@@ -49,6 +51,7 @@ class ParserController extends Controller
 				}
 				$title = array_pop($types);
 				$category = $types[count($types)-1];
+				$category = trim($category);
 			    $price=$html->find('.viewbull-summary-price__value', 0)->plaintext;
 				$price = substr($price,0,-4);
 				$price = str_replace(" ","",$price);
@@ -65,6 +68,7 @@ class ParserController extends Controller
 				$number=$html->find('span.inplace', 5)->plaintext;
 				$number = explode(',', $number);  
 				$number = $number[0];
+				$number = trim($number);
 				$models = array();
 				foreach ($html->find('.autoPartsModel .inplace li') as $mark) {
 					$mark = explode(',', $mark);
@@ -81,12 +85,12 @@ class ParserController extends Controller
 													]);
 					$tableCar->save();
 					$mark = $tableCar->title.' ('.$tableCar->translate.')'; //сгененрировать название
-					array_push($models, $mark);
+					array_push($models, $alias);
 				}
 				$models = array_unique($models);
 				$engine=''; //пустое значение в массив
 				$parsed_engine=$html->find('.autoPartsEngine span.inplace', 0)->plaintext; //парсим номера двигателей
-				$engines = explode(',', $parsed_engine); //разделяем их по зяпятой
+				$engines = explode(', ', $parsed_engine); //разделяем их по зяпятой
 				$withoutEndEngines = array(); //пустой массив для конечных вариантов
 				foreach ($engines as $engine) {
 					$engine = trim($engine); //убираем пробелы
@@ -108,14 +112,17 @@ class ParserController extends Controller
 					}
 				}
 				$withoutEndEngines = array_unique($withoutEndEngines); //только цникальные значения в массиве
-				$enginesToDB = implode(",", $withoutEndEngines); //Двигатели, которые пойдут в БД
-				$modelsToDB = implode(",",$models); // Модели, которые пойдут в БД
+				$enginesToDB = implode(", ", $withoutEndEngines); //Двигатели, которые пойдут в БД
+				$modelsToDB = implode(", ",$models); // Модели, которые пойдут в БД
 				$firstMark = current($models); //первый элемент марки и модели
+				$firstMarkFormDB = Car::where('alias', $firstMark)->first();//первая модель
+				$firstMark = $firstMarkFormDB->title;//назначить первую модель в название
+				$firstMark = trim($firstMark); //убрать лишние пробелы
 				$firstMark = $firstMark.' '; //пробел в конце марки и модели
 				$firstEngines = array_slice($withoutEndEngines,0,2); //получаем первые 2 двигателя
 				$firstEngines = implode(", ", $firstEngines); //соединяем двигатели через запятую
 				$titleOfAd = $title.$firstMark.'('.$firstEngines.')'; //создаем название
-				
+				$titleOfAd = trim($titleOfAd);
 				//Добавляем в БД
 				$part = Part::firstOrNew([	
 										'link' => $link
@@ -141,7 +148,20 @@ class ParserController extends Controller
     {
 		if (Auth::check()) {
 			$parts = Part::orderBy('created_at', 'desc')->get();
-			return view('parser.PartsTable', compact('parts'));
+			foreach ($parts as $part) {
+				$models = $part->models;
+				$models = explode(',', $models);
+				$translations = array();
+				foreach ($models as $model) {
+					$model = trim($model);
+					$car = Car::where('alias', $model)->first();
+					$translation = $car->title.' ('.$car->translate.'),';
+					array_push ($translations, $translation);
+				}
+				//array_splice($translations, 5);
+				//print_r($translate);
+			}
+			return view('parser.PartsTable', compact('parts', 'translations'));
 		}
 		else {
 			return redirect('/login');
@@ -155,6 +175,53 @@ class ParserController extends Controller
 			$part = Part::find($id);
 			$action = action('ParserController@PartEdit', $id);
 			return view('parser.PartPage', compact('part', 'action'));
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
+	//Страница из БД
+    public function IndexPartPage($id, Part $part)
+    {
+		if (Auth::check()) {
+			$part = Part::find($id); //находим элемент в БД
+			// получаем данные по элементу
+			$link = $part->link;
+			$title = $part->titleOfAd;
+			$category = $part->category;
+			$price = $part->price;
+			$parsed_engine = $part->parsed_engine;
+			$number = $part->number;
+			$price_main = $part->price_main;
+			$image = $part->image;
+			$models = $part->models;
+			// получили данные
+				$models = explode(',', $models); //создаем массив из моеделей авто
+				$translations = array(); //пустой массив
+				foreach ($models as $model) {
+					$model = trim($model); //удаляем пробелы
+					$car = Car::where('alias', $model)->first(); //находим тачку в таблице Автомобилей
+					$translation = $car->title.' ('.$car->translate.')'; //получаем данные
+					array_push ($translations, $translation); //добавляем данные в таблицу
+				}
+				$originalModels = array(); //пустой массив
+				foreach ($models as $model) {
+					$model = trim($model); //удаляем пробелы
+					$car = Car::where('alias', $model)->first(); //находим тачку в таблице Автомобилей
+					$originalModel = $car->title; //получаем данные
+					array_push ($originalModels, $originalModel); //добавляем данные в таблицу
+				}
+			$twoModels = array_slice($originalModels,0,1);
+			$twoModels = implode(" ", $twoModels);
+				$engines = explode(',', $parsed_engine);
+				$twoEngines = array(); //пустой массив
+				$twoEngines = array_slice($engines,0,2);
+				$twoEngines = implode(",", $twoEngines);
+			//$title_promo = $title.' '.$twoModels.' ('.$twoEngines.')'; //автоматическая генерация названия
+			$title_promo = $part->titleOfAd; //ручная генерация названия
+			$titleOfAd = $title;
+			return view('parser.IndexPartPage', compact('link','title','image', 'price', 'number', 'models', 'engine', 'category', 'title_promo', 'price_main', 'parsed_engine', 'titleOfAd', 'part', 'translations'));
 		}
 		else {
 			return redirect('/login');
@@ -248,6 +315,34 @@ class ParserController extends Controller
 			return redirect('/login');
 		}
     }
+	
+	//Получить XML файл
+    public function PartXML(Part $part, Car $car)
+    {
+		if (Auth::check()) {
+			$parts = Part::all();
+			foreach ($parts as $part) {
+				$models = $part->models;
+				$models = explode(',', $models);
+				$translations = array();
+				foreach ($models as $model) {
+					$model = trim($model);
+					$car = Car::where('alias', $model)->first();
+					$translation = $car->title.' ('.$car->translate.'),';
+					array_push ($translations, $translation);
+				}
+				array_splice($translations, 5);
+				//print_r($translate);
+			}
+			return view('parser.PartsXML', compact('parts', 'models', 'translations'));
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
+	
+	//   CARS
 	
 	//База автомобилей
     public function CarsTable()
