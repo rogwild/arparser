@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
 	  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		  <h1>База деталей</h1>
-				<table class="table table-hover table-responsive">
+		  	<div class="table-responsive table-responsive-sm text-center">
+		  		<table class="table table-striped table-hover">
 				  <thead>
 					<tr>
 					  <th>Картинка</th>
@@ -24,7 +25,7 @@
 				  <tbody>
 				  @foreach ($parts as $part)
 					<tr>
-					  <td><img src="{{ $part->image }}" alt="" class="img-responsive"></td>
+					  <td><img src="{{ $part->image }}" alt="" class="img-thumbnail"></td>
 					  <td><a href="parts/{{ $part->id }}">{{ $part->titleOfAd }}</a></td>
 					  <td>
 					  	<ul>
@@ -48,6 +49,7 @@
 				  @endforeach
 				  </tbody>
 				</table>
+		  	</div>
 		  </div>
     </div>
 </div>

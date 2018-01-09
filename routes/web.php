@@ -40,3 +40,8 @@ Route::get('/parsers/autodoc', 'ParserController@arpartsAutodoc');
 Route::post('/parsers/autodoc', 'ParserController@arpartsAutodocParser');
 Route::get('/parsers/drom', 'ParserController@DromParser');
 Route::post('/parsers/drom', 'ParserController@arpartsDromParser');*/
+
+
+
+//Генератор страниц для Arparts
+Route::get('/arparts', 'PageController@index');
