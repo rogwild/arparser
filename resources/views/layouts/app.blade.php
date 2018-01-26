@@ -31,6 +31,9 @@
 			  </li>
 			@else
 			  <li class="nav-item">
+				<a class="nav-link" href="/home">Панель управления</a>
+			  </li>
+			  <li class="nav-item">
 				<a class="nav-link" href="/parsers/cars">Автомобили</a>
 			  </li>
 			  <li class="nav-item">

@@ -34,6 +34,41 @@ class ParserController extends Controller
 		}
     }
 	
+	//Создать деталь вручную
+    public function CreatePartByHands(Request $request)
+    {
+		if (Auth::check()) {
+			$link = $request['html'];
+			foreach ($marks as $mark) {
+					$alias = preg_replace("/ /","",$mark);
+					// Найти в таблице название модели, если его нет, то создать
+					$tableCar = Car::firstOrNew([
+													'alias' => $alias
+													], [
+													'title' => $mark,
+													'translate' => ''
+													]);
+					$tableCar->save();
+					$mark = $tableCar->title.' ('.$tableCar->translate.')'; //сгененрировать название
+					array_push($models, $alias);
+				}
+			$models = array_unique($models);
+			$part = Part::create([
+								'models' => $modelsToDB, 
+								'category' => $category, 
+								'titleOfAd' => $titleOfAd, 
+								'price' => $price,
+								'parsed_engine' => $enginesToDB,
+								'number' => $number,
+								'price_main' => $price_main,
+								'image' => $image]);
+			$part -> save();
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
 	//Парсер с Drom.ru
     public function DromParser(Request $request)
     {
@@ -94,7 +129,7 @@ class ParserController extends Controller
 				$withoutEndEngines = array(); //пустой массив для конечных вариантов
 				foreach ($engines as $engine) {
 					$engine = trim($engine); //убираем пробелы
-					$amountOfLetters = iconv_strlen ($engine); //считаем количество знаков в номере
+					$amountOfLetters = iconv_strlen($engine); //считаем количество знаков в номере
 					if ($amountOfLetters >= 5) {
 						$engine = substr($engine,0,-2); //убираем последние 2
 						$lastLetter = substr($engine, -1); //смотрим что осталось в конце
@@ -112,6 +147,7 @@ class ParserController extends Controller
 					}
 				}
 				$withoutEndEngines = array_unique($withoutEndEngines); //только цникальные значения в массиве
+				array_splice($withoutEndEngines, 5);
 				$enginesToDB = implode(", ", $withoutEndEngines); //Двигатели, которые пойдут в БД
 				$modelsToDB = implode(", ",$models); // Модели, которые пойдут в БД
 				$firstMark = current($models); //первый элемент марки и модели
@@ -196,6 +232,7 @@ class ParserController extends Controller
 			$price_main = $part->price_main;
 			$image = $part->image;
 			$models = $part->models;
+			$description = $part->description;
 			// получили данные
 				$models = explode(',', $models); //создаем массив из моеделей авто
 				$translations = array(); //пустой массив
@@ -221,7 +258,7 @@ class ParserController extends Controller
 			//$title_promo = $title.' '.$twoModels.' ('.$twoEngines.')'; //автоматическая генерация названия
 			$title_promo = $part->titleOfAd; //ручная генерация названия
 			$titleOfAd = $title;
-			return view('parser.IndexPartPage', compact('link','title','image', 'price', 'number', 'models', 'engine', 'category', 'title_promo', 'price_main', 'parsed_engine', 'titleOfAd', 'part', 'translations'));
+			return view('parser.IndexPartPage', compact('link','title','image', 'price', 'number', 'models', 'engine', 'category', 'title_promo', 'price_main', 'parsed_engine', 'titleOfAd', 'part', 'translations', 'description'));
 		}
 		else {
 			return redirect('/login');
@@ -237,7 +274,7 @@ class ParserController extends Controller
 				$part = Part::find($id);
 				$newTitle = $request['newTitle'];
 				$newImage = $request['newImage'];
-				$newModels = $request['newModels'];
+				//$newModels = $request['newModels'];
 				$newCategory = $request['newCategory'];
 				$newPrice = $request['newPrice'];
 				$newPrice_main = $request['newPrice_main'];
@@ -245,6 +282,7 @@ class ParserController extends Controller
 				$newParsed_engine = $request['newParsed_engine'];
 				$newNumber = $request['newNumber'];
 				$newAvito_category = $request['newAvito_category'];
+				$newDescription = $request['newDescription'];
 				if ($newTitle != NULL) {
 					$part->titleOfAd=$newTitle;
 						$part->save();
@@ -253,10 +291,10 @@ class ParserController extends Controller
 					$part->image=$newImage;
 						$part->save();
 				}
-				if ($newModels != NULL) {
+				/*if ($newModels != NULL) {
 					$part->models=$newModels;
 						$part->save();
-				}
+				}*/
 				if ($newCategory != NULL) {
 					$part->category=$newCategory;
 						$part->save();
@@ -285,6 +323,10 @@ class ParserController extends Controller
 					$part->avito_category=$newAvito_category;
 						$part->save();
 				}
+				if ($newDescription != NULL) {
+					$part->description=$newDescription;
+						$part->save();
+				}
 				return redirect()->back();
 			}
 			else {
@@ -295,6 +337,38 @@ class ParserController extends Controller
 			return redirect('/login');
 		}
     }
+	
+	//Изменить транскрипцию названия автомобиля
+    /*public function UpdateTranslation(Part $part, $id, Request $request)
+    {
+		if (Auth::check()) {
+			$user = Auth::user();
+			if ($user -> type == 'admin') {
+				$part = Part::find($id);
+				$models = $part->models;
+				// получили данные
+				$models = explode(',', $models); //создаем массив из моеделей авто
+				$translations = array(); //пустой массив
+				foreach ($models as $model) {
+					$model = trim($model); //удаляем пробелы
+					$car = Car::where('alias', $model)->first(); //находим тачку в таблице Автомобилей
+					$translation = $car->title.' ('.$car->translate.')'; //получаем данные
+					array_push ($translations, $translation); //добавляем данные в таблицу
+				}
+				$translations=implode(", ",$translations);
+				$part->translation=$translations;
+				$part->save();
+				return redirect()->back();
+			}
+			else {
+				return redirect()->back();
+			}
+			
+		}
+		else {
+			return redirect('/login');
+		}
+    }*/
 	
 	//Изменить транскрипцию названия автомобиля
     public function PartDelete(Part $part, $id, Request $request)
@@ -321,7 +395,7 @@ class ParserController extends Controller
     {
 		if (Auth::check()) {
 			$parts = Part::all();
-			foreach ($parts as $part) {
+			/*foreach ($parts as $part) {
 				$models = $part->models;
 				$models = explode(',', $models);
 				$translations = array();
@@ -332,9 +406,10 @@ class ParserController extends Controller
 					array_push ($translations, $translation);
 				}
 				array_splice($translations, 5);
-				//print_r($translate);
+				//print_r($translations);
 			}
-			return view('parser.PartsXML', compact('parts', 'models', 'translations'));
+			$collection = collect($translations);*/
+			return view('parser.PartsXML', compact('parts', 'models', 'translations','collection'));
 		}
 		else {
 			return redirect('/login');

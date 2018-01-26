@@ -16,8 +16,10 @@ class CreatePartsTable extends Migration
         Schema::create('parts', function (Blueprint $table) {
             $table->increments('id');
 			$table->text('models');
+			$table->text('translation');
 			$table->string('category');
 			$table->string('avito_category')->nullable();
+			$table->text('description');
 			$table->string('titleOfAd');
 			$table->integer('price');
 			$table->string('parsed_engine');

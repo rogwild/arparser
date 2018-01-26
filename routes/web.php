@@ -31,6 +31,7 @@ Route::get('/parsers/cars/{id}', 'ParserController@CarPage');
 Route::get('/parsers/parts', 'ParserController@PartsTable');
 Route::get('/parsers/parts/{id}', 'ParserController@IndexPartPage');
 Route::post('/parsers/parts/{id}/edit', 'ParserController@PartEdit');
+//Route::get('/parsers/parts/{id}/updatetranslation', 'ParserController@UpdateTranslation');
 Route::get('/parsers/parts/{id}/delete', 'ParserController@PartDelete');
 Route::get('/parsers/parts/{id}/edit', 'ParserController@PartPage');
 

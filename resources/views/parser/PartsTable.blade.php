@@ -9,10 +9,11 @@
 		  		<table class="table table-striped table-hover">
 				  <thead>
 					<tr>
+					  <th></th>
 					  <th>Картинка</th>
 					  <th>Название</th>
 					  <th>Модели</th>
-					  <th>Категория</th>
+					  <th>Описание</th>
 					  <th>Категория на Авито</th>
 					  <th>Цена (увеличенная)</th>
 					  <th>Цена (скопированная)</th>
@@ -25,16 +26,15 @@
 				  <tbody>
 				  @foreach ($parts as $part)
 					<tr>
+					  <td>
+					  	<a href="parts/{{ $part->id }}/edit" class="btn btn-default btn-xs">ИЗМЕНИТЬ</a>
+					  </td>
 					  <td><img src="{{ $part->image }}" alt="" class="img-thumbnail"></td>
 					  <td><a href="parts/{{ $part->id }}">{{ $part->titleOfAd }}</a></td>
 					  <td>
-					  	<ul>
-					  	@foreach ($translations as $translation)
-					  		<li>{{ $translation }}</li>
-						@endforeach
-						</ul>
+					  	{{ $part->models }}
 					  </td>
-					  <td>{{ $part->category }}</td>
+					  <td>{{ $part->description }}</td>
 					  <td>{{ $part->avito_category }}</td>
 					  <td>{{ $part->price }}</td>
 					  <td>{{ $part->price_main }}</td>
@@ -42,7 +42,6 @@
 					  <td>{{ $part->number }}</td>
 					  <td><a href="{{ $part->link }}">DROM.ru</a></td>
 					  <td>
-					  	<a href="parts/{{ $part->id }}/edit" class="btn btn-default btn-xs">ИЗМЕНИТЬ</a>
 					  	<a href="parts/{{ $part->id }}/delete" class="btn btn-danger btn-xs">УДАЛИТЬ</a>
 					  </td>
 					</tr>
