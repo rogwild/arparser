@@ -9,14 +9,16 @@
 		  		<table class="table table-striped table-hover">
 				  <thead>
 					<tr>
-					  <th></th>
+				  	  <th></th>
 					  <th>Картинка</th>
 					  <th>Название</th>
 					  <th>Модели</th>
 					  <th>Описание</th>
 					  <th>Категория на Авито</th>
-					  <th>Цена (увеличенная)</th>
-					  <th>Цена (скопированная)</th>
+					  <th>
+					  	Цена (увеличенная) <br>
+					  	Цена (скопированная)
+					  </th>
 					  <th>Двигатели</th>
 					  <th>Номер</th>
 					  <th>Ссылка</th>
@@ -26,18 +28,32 @@
 				  <tbody>
 				  @foreach ($parts as $part)
 					<tr>
-					  <td>
-					  	<a href="parts/{{ $part->id }}/edit" class="btn btn-default btn-xs">ИЗМЕНИТЬ</a>
-					  </td>
+					  <th scope="row">
+					  	<a href="parts/{{ $part->id }}/edit" class="btn btn-default btn-xs">
+					  	{{ $part->id }}
+					  	</a>
+					  </th>
 					  <td><img src="{{ $part->image }}" alt="" class="img-thumbnail"></td>
-					  <td><a href="parts/{{ $part->id }}">{{ $part->titleOfAd }}</a></td>
 					  <td>
-					  	{{ $part->models }}
+						  <a href="parts/{{ $part->id }}">
+							  <small>
+								{{ $part->titleOfAd }}
+							  </small>
+						  </a>
+					  </td>
+					  <td>
+					  <p>
+					  	<small>
+					  		{{ $part->models }}
+					  	</small>
+					  </p>
 					  </td>
 					  <td>{{ $part->description }}</td>
 					  <td>{{ $part->avito_category }}</td>
-					  <td>{{ $part->price }}</td>
-					  <td>{{ $part->price_main }}</td>
+					  <td>
+					  	{{ $part->price }} <br>
+					  	{{ $part->price_main }}
+					  </td>
 					  <td>{{ $part->parsed_engine }}</td>
 					  <td>{{ $part->number }}</td>
 					  <td><a href="{{ $part->link }}">DROM.ru</a></td>

@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+           	<a href="/parsers/parts" class="btn btn-outline-secondary mt-3">НАЗАД</a>
             <h1>Изменить данные детали</h1>
 			<div class="row">
 			  <div class="col-xs-12">
@@ -125,7 +126,6 @@
 					<div class="form-group">
 						<button type="submit" class="btn btn-success btn-md pull-right">ИЗМЕНИТЬ</button>
 					</div>
-					<a href="/parsers/parts" class="btn btn-default">НАЗАД</a>
 				</form>
 			  </div>
 			</div>

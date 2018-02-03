@@ -3,7 +3,7 @@
 	<Ad>
 		<Id>{{ $part->id+241 }}</Id>
 		<Category>Запчасти и аксессуары</Category>
-		<TypeId>11-623</TypeId>
+		<TypeId>{{ $part->avito_category }}</TypeId>
 		<CompanyName>JDMstore</CompanyName>
 		<ManagerName>Менеджер</ManagerName>
 		<ContactPhone>8-812-988-22-64</ContactPhone>
