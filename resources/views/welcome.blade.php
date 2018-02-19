@@ -20,9 +20,9 @@
        			<h1 class="display-1" style="margin-top: 250px;">
        				Arparser
        			</h1>
-       			<a href="/parsers" class="text-muted">Парсеры</a>
-       			<a href="/parsers/cars" class="text-muted">Автомобили</a>
-       			<a href="/parsers/parts" class="text-muted">Детали</a>
+       			<a href="{{ route('parser.drom') }}" class="text-muted">Парсеры</a>
+       			<a href="{{ route('cars.table') }}" class="text-muted">Автомобили</a>
+       			<a href="{{ route('parts.table') }}" class="text-muted">Детали</a>
        		</div>
        	</div>
        </div>

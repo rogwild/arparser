@@ -17,25 +17,25 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('admin/home', 'HomeController@index')->name('admin.home');
 //страница с выбором парсера
 Route::get('/parsers', 'ParserController@index');
 //страница парсера с Дром
 Route::post('/parsers/drom', 'ParserController@DromParser');
-Route::get('/parsers/drom', 'ParserController@LinkToDrom');
+Route::get('admin/parsers/drom', 'ParserController@LinkToDrom')->name('parser.drom');
 //страница с таблицей автомобилей
-Route::get('/parsers/cars', 'ParserController@CarsTable');
-Route::post('/parsers/cars/{id}/translate', 'ParserController@CarTranslate');
-Route::get('/parsers/cars/{id}', 'ParserController@CarPage');
+Route::get('/admin/cars-table', 'ParserController@CarsTable')->name('cars.table');
+Route::post('/parsers/cars/{id}/translate', 'ParserController@CarTranslate')->name('car.translate');
+Route::get('/parsers/cars/{id}', 'ParserController@CarPage')->name('car.page');
 //страница с таблицей деталей
-Route::get('/parsers/parts', 'ParserController@PartsTable');
-Route::get('/parsers/parts/{id}', 'ParserController@IndexPartPage');
-Route::post('/parsers/parts/{id}/edit', 'ParserController@PartEdit');
+Route::get('admin/parts-table', 'ParserController@PartsTable')->name('parts.table');
+Route::get('/admin/parts/{id}', 'ParserController@IndexPartPage')->name('part.page');
+Route::post('/admin/parts/{id}/edit', 'ParserController@PartEdit')->name('part.edit');
 //Route::get('/parsers/parts/{id}/updatetranslation', 'ParserController@UpdateTranslation');
-Route::get('/parsers/parts/{id}/delete', 'ParserController@PartDelete');
-Route::get('/parsers/parts/{id}/edit', 'ParserController@PartPage');
+Route::get('/admin/parts/{id}/delete', 'ParserController@PartDelete')->name('part.delete');
+Route::get('/admin/parts/{id}/edit', 'ParserController@PartPage');
 
-Route::get('/parts/xml', 'ParserController@PartXML');
+Route::get('/parts/xml', 'ParserController@PartXML')->name('xml');
 /*
 Route::get('/parsers/autodoc', 'ParserController@arpartsAutodoc');
 Route::post('/parsers/autodoc', 'ParserController@arpartsAutodocParser');

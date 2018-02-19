@@ -27,7 +27,7 @@ class ParserController extends Controller
 			$page_name = 'DROM.RU';
 			$link = 'baza.drom.ru';
 			$action = action('ParserController@DromParser');
-			return view('parser.InputLink', compact('page_name', 'link', 'action'));
+			return view('admin.parts-parser', compact('page_name', 'link', 'action'));
 		}
 		else {
 			return redirect('/login');
@@ -183,6 +183,7 @@ class ParserController extends Controller
     public function PartsTable()
     {
 		if (Auth::check()) {
+			$xmlRoute = route('xml');
 			$parts = Part::orderBy('created_at', 'desc')->get();
 			foreach ($parts as $part) {
 				$models = $part->models;
@@ -197,7 +198,7 @@ class ParserController extends Controller
 				//array_splice($translations, 5);
 				//print_r($translate);
 			}
-			return view('parser.PartsTable', compact('parts', 'translations'));
+			return view('admin.parts-table', compact('parts', 'translations', 'xmlRoute'));
 		}
 		else {
 			return redirect('/login');
@@ -258,14 +259,14 @@ class ParserController extends Controller
 			//$title_promo = $title.' '.$twoModels.' ('.$twoEngines.')'; //автоматическая генерация названия
 			$title_promo = $part->titleOfAd; //ручная генерация названия
 			$titleOfAd = $title;
-			return view('parser.IndexPartPage', compact('link','title','image', 'price', 'number', 'models', 'engine', 'category', 'title_promo', 'price_main', 'parsed_engine', 'titleOfAd', 'part', 'translations', 'description'));
+			return view('admin.part-page', compact('link','title','image', 'price', 'number', 'models', 'engine', 'category', 'title_promo', 'price_main', 'parsed_engine', 'titleOfAd', 'part', 'translations', 'description'));
 		}
 		else {
 			return redirect('/login');
 		}
     }
 	
-	//Изменить транскрипцию названия автомобиля
+	//Изменить информацию о запчасти
     public function PartEdit(Part $part, $id, Request $request)
     {
 		if (Auth::check()) {
@@ -378,7 +379,7 @@ class ParserController extends Controller
 			if ($user -> type == 'admin') {
 				$part = Part::find($id);
 				$part->delete();
-				return redirect()->back();
+				return redirect()->route('parts.table');
 			}
 			else {
 				return redirect()->back();
@@ -424,7 +425,7 @@ class ParserController extends Controller
     {
 		if (Auth::check()) {
 			$cars = Car::orderBy('title', 'desc')->get();
-			return view('parser.CarsTable', compact('cars'));
+			return view('admin.cars-table', compact('cars'));
 		}
 		else {
 			return redirect('/login');
@@ -437,7 +438,7 @@ class ParserController extends Controller
 		if (Auth::check()) {
 			$car = Car::find($id);
 			$action = action('ParserController@CarTranslate', $id);
-			return view('parser.CarPage', compact('car', 'action'));
+			return view('admin.car-page', compact('car', 'action'));
 		}
 		else {
 			return redirect('/login');
