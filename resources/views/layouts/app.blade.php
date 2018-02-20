@@ -504,11 +504,13 @@
                                                 </ul>
                                             </li>
                                             <li>
-                                                <a role="button" tabindex="0"><i class="fa fa-shopping-cart"></i> <span>Магазин</span> <span class="label label-success">new</span></a>
-                                                <ul>
-                                                    <li><a href="{{ route('cars.table') }}"><i class="fa fa-caret-right"></i> Автомобили </a></li>
-                                                    <li><a href="{{ route('parts.table') }}"><i class="fa fa-caret-right"></i> Запчасти</a></li>
-                                                </ul>
+                                            	<a href="{{ route('cars.table') }}"><i class="fa fa-car"></i> Автомобили </a>
+                                            </li>
+                                            <li>
+                                            	<a href="{{ route('parts.table') }}"><i class="fa fa-gear"></i> Запчасти</a>
+                                            </li>
+                                            <li>
+                                            	<a href="{{ route('keywords.table') }}"><i class="fa fa-tag"></i> Ключевые слова</a>
                                             </li>
                                             <!--
                                             <li>

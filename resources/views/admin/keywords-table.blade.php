@@ -10,7 +10,7 @@
 
                     <div class="pageheader">
 
-                        <h2>Запчасти <span> </span></h2>
+                        <h2>Ключевые слова <span> </span></h2>
 
                         <div class="page-bar">
 
@@ -19,10 +19,7 @@
                                     <a href="{!! url('admin/home'); !!}"><i class="fa fa-home"></i> ARparser</a>
                                 </li>
                                 <li>
-                                    <a href="#">Магазин</a>
-                                </li>
-                                <li>
-                                    <a href="shop-products.html">Запчасти</a>
+                                    <a href="#">#</a>
                                 </li>
                             </ul>
                             
@@ -45,25 +42,25 @@
 
                                     <!-- tile header -->
                                     <div class="tile-header dvd dvd-btm">
-                                        <h1 class="custom-font"><strong>Запчасти</strong></h1>
+                                        <h1 class="custom-font"><strong>Ключевые слова</strong></h1>
                                         <ul class="controls">
-                                            <li><a href="javascipt:;"><i class="fa fa-plus mr-5"></i> Новая запчасть</a></li>
+                                            <li><a href="{{ route('keyword-page.create') }}"><i class="fa fa-plus mr-5"></i> Добавить</a></li>
 
                                             <li class="dropdown">
 
                                                 <a role="button" tabindex="0" class="dropdown-toggle" data-toggle="dropdown">Инструменты <i class="fa fa-angle-down ml-5"></i></a>
-
+												<!--
                                                 <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
                                                     <li>
                                                         <a href="{{ route('xml') }}">Экспортировать в XML</a>
                                                     </li>
-                                                    <!--
+                                                    
                                                     <li role="presentation" class="divider"></li>
                                                     <li>
                                                         <a href>Печать счетов-фактур</a>
-                                                    </li>-->
+                                                    </li>
 
-                                                </ul>
+                                                </ul>-->
 
                                             </li>
                                             <li class="dropdown">
@@ -105,60 +102,20 @@
                                             <table class="table table-striped table-hover table-custom" id="products-list">
                                                 <thead>
                                                 <tr>
-                                                   <!--
-                                                    <th style="width:40px;" class="no-sort">
-                                                        <label class="checkbox checkbox-custom-alt checkbox-custom-sm m-0">
-                                                            <input type="checkbox" id="select-all"><i></i>
-                                                        </label>
-                                                    </th>-->
-                                                    <th>id</th>
-                                                    <th style="width:90px;">Картинка</th>
                                                     <th>Название</th>
-                                                    <th>Модели</th>
-                                                    <th style="width:80px;">Описание</th>
-                                                    <th style="width:160px;">Категория на Авито</th>
-                                                    <th style="width:90px;">Цена</th>
-                                                    <th style="width:150px;" class="no-sort">Двигатели</th>
-                                                    <th>Номер</th>
-												    <th>Ссылка</th>
+                                                    <th>Слова</th>
+                                                    <th></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-											  @foreach ($parts as $part)
-												<tr>
-												  <th scope="row">
-													{{ $part->id }}
-												  </th>
-												  <td><img src="{{ $part->image }}" alt="" class="img-thumbnail" style="width:50px;"></td>
-												  <td>
-													  <a href="{{ route('part.page',[$part->id]) }}">
-														  <small>
-															{{ $part->titleOfAd }}
-														  </small>
-													  </a>
-												  </td>
-												  <td>
-												  <p>
-													<small>
-														{{ $part->models }}
-													</small>
-												  </p>
-												  </td>
-												  <td>{{ $part->part_description }}</td>
-												  <td>{{ $part->avito_category }}</td>
-												  <td>
-													{{ $part->price }} <br>
-													<small>
-														до парсера: {{ $part->price_main }}
-													</small>
-													
-												  </td>
-												  <td>{{ $part->parsed_engine }}</td>
-												  <td>{{ $part->number }}</td>
-												  <td><a href="{{ $part->link }}">DROM.ru</a></td>
-												</tr>
-											    @endforeach
-											  </tbody>
+                                                	 @foreach ($keywords as $keyword)
+														<tr>
+														  <td>{{ $keyword->name }}</td>
+														  <td>{{ $keyword->words }}</td>
+														  <td><a href="{{ route('keyword.page', [$keyword->id]) }}" class="btn btn-default btn-xs">ИЗМЕНИТЬ</a></td>
+														</tr>
+													  @endforeach
+                                                </tbody>
                                             </table>
                                         </div>
 

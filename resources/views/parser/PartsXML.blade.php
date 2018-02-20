@@ -18,9 +18,10 @@
 			В продаже:
 			</strong><br /><em>
 			{{ $part->titleOfAd }} в Санкт-Петербурге. </em>&nbsp;Новый!</p>
-			<p><strong> </strong>
-			{{ $part->descriprion }}
-				@if ($part->description == 1)
+			<p>
+				@if ($part->description !== NULL)
+					{{ $part->part_description }}<br />
+				@elseif ($part->description == 1)
 					Комплект для замены цепи ГРМ.<br />
 					В комплект входит: цепь грм, гидронатяжитель, успокоитель, башмак, шестерня, цепь балансира.<br />
 				@elseif ($part->description == 2)

@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('admin.home');
 });
 
 Auth::routes();
@@ -41,6 +41,13 @@ Route::get('/parsers/autodoc', 'ParserController@arpartsAutodoc');
 Route::post('/parsers/autodoc', 'ParserController@arpartsAutodocParser');
 Route::get('/parsers/drom', 'ParserController@DromParser');
 Route::post('/parsers/drom', 'ParserController@arpartsDromParser');*/
+
+//страница с таблицей ключевых слов
+Route::get('admin/keywords-table', 'KeywordController@KeywordsTable')->name('keywords.table');
+Route::post('admin/keywords/create-page/create', 'KeywordController@KeywordCreate')->name('keyword.create');
+Route::get('admin/keywords/create-page', 'KeywordController@KeywordPageCreate')->name('keyword-page.create');
+Route::get('admin/keywords/{id}', 'KeywordController@KeywordPage')->name('keyword.page');
+Route::post('admin/keywords/{id}/edit', 'KeywordController@KeywordEdit')->name('keyword.edit');
 
 
 

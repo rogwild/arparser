@@ -184,7 +184,10 @@ return [
 		Illuminate\Validation\ValidationServiceProvider::class,
 	
 		//XML response
-		XmlResponse\XmlResponseServiceProvider::class
+		XmlResponse\XmlResponseServiceProvider::class,
+	
+		//Laravel 5 Nestable
+		Nestable\NestableServiceProvider::class
 
     ],
 

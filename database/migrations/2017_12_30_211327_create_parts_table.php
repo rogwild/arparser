@@ -18,8 +18,16 @@ class CreatePartsTable extends Migration
 			$table->text('models');
 			$table->text('translation');
 			$table->string('category');
+			$table->integer('user_id');
+			$table->integer('store_id')->nullable();
+			$table->boolean('visibility')->default(true);
 			$table->string('avito_category')->nullable();
 			$table->text('description');
+			$table->text('main_description')->nullable();
+			$table->text('part_description')->nullable();
+			$table->text('additional_description_1')->nullable();
+			$table->text('additional_description_2')->nullable();
+			$table->text('additional_description_3')->nullable();
 			$table->string('titleOfAd');
 			$table->integer('price');
 			$table->string('parsed_engine');

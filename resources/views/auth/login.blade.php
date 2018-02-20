@@ -1,143 +1,211 @@
-<!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="{{ app()->getLocale() }}"> <!--<![endif]-->
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Arparser') }}</title>
 
-    <!-- Styles -->
-    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
-</head>
-<body>
-   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	  <a class="navbar-brand" href="{{ url('/') }}">Arparser</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	  </button>
+    <head>
 
-	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		<ul class="navbar-nav mr-auto">
-	  		@if (Auth::guest())
-			  <li class="nav-item active">
-				<a class="nav-link" href="{{ route('login') }}">Войти<span class="sr-only">(current)</span></a>
-			  </li>
-			  <li class="nav-item active">
-				<a class="nav-link" href="{{ route('register') }}">Регистрация<span class="sr-only">(current)</span></a>
-			  </li>
-			@else
-			  <li class="nav-item">
-				<a class="nav-link" href="/home">Панель управления</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link" href="/parsers/cars">Автомобили</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link" href="/parsers/parts">Детали</a>
-			  </li>
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="/parsers" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				  Парсеры
-				</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				  <a class="dropdown-item" href="/parsers/drom">Drom.ru</a>
-				</div>
-			  </li>
-			  <li class="nav-item dropdown">
-					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-						{{ Auth::user()->name }} <span class="caret"></span>
-					</a>
+        <meta charset="utf-8">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>{{ config('app.name', 'Arparser') }}</title>
+        <link rel="icon" type="image/ico" href="{{ asset('assets/images/favicon.ico') }}" />
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-					<ul class="dropdown-menu" role="menu">
-						<li class="dropdown-item">
-							<a href="{{ route('logout') }}"
-								onclick="event.preventDefault();
-										 document.getElementById('logout-form').submit();">
-								Выйти
-							</a>
 
-							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-								{{ csrf_field() }}
-							</form>
-						</li>
-					</ul>
-				</li>
-			@endif
-		</ul>
-		<!--<form class="form-inline my-2 my-lg-0">
-		  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-		  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-		</form>-->
-	  </div>
-	</nav>
-<div class="container">
-    <div class="row justify-content-lg-center">
-       <div class="col-lg-auto">
-       	<div class="jumbotron" style="margin-top: 30px;">
-		  <h1 class="display-4">Login</h1>
-		  <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+
+
+        <!-- ============================================
+        ================= Stylesheets ===================
+        ============================================= -->
+        <!-- vendor css files -->
+        <link rel="stylesheet" href="{{ asset('assets/css/vendor/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/vendor/animate.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/vendor/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/js/vendor/animsition/css/animsition.min.css') }}">
+
+        <!-- project main css files -->
+        <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+        <!--/ stylesheets -->
+
+
+
+        <!-- ==========================================
+        ================= Modernizr ===================
+        =========================================== -->
+        <script src="{{ asset('assets/js/vendor/modernizr/modernizr-2.8.3-respond-1.4.2.min.js') }}"></script>
+        <!--/ modernizr -->
+
+
+
+
+    </head>
+
+
+
+
+
+    <body id="minovate" class="appWrapper">
+
+
+
+
+
+
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- ====================================================
+        ================= Application Content ===================
+        ===================================================== -->
+        <div id="wrap" class="animsition">
+
+
+
+
+            <div class="page page-core page-login">
+
+                <div class="text-center"><h3 class="text-light text-white"><span class="text-lightred">AR</span>PARSER</h3></div>
+
+                <div class="container w-420 p-15 bg-white mt-40 text-center">
+
+
+                    <h2 class="text-light text-greensea">Log In</h2>
+
+                    <form name="form" method="POST" action="{{ route('login') }}" class="form-validation mt-20" novalidate="">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md control-label">E-Mail Address</label>
-
-                            <div class="col-md">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md control-label">Password</label>
-
-                            <div class="col-md">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control underline-input" placeholder="Email" name="email" value="{{ old('email') }}" required autofocus>
+                            @if ($errors->has('email'))
+								<span class="help-block">
+									<strong>{{ $errors->first('email') }}</strong>
+								</span>
+							@endif
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
+                            <input type="password" placeholder="Password" class="form-control underline-input" name="password" required>
+                            @if ($errors->has('password'))
+								<span class="help-block">
+									<strong>{{ $errors->first('password') }}</strong>
+								</span>
+							@endif
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
-                            </div>
+                        <div class="form-group text-left mt-20">
+                            <button class="btn btn-greensea b-0 br-2 mr-5" type="submit">Login</button>
+                            <label class="checkbox checkbox-custom-alt checkbox-custom-sm inline-block" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                <input type="checkbox"><i></i> Remember me
+                            </label>
+                            <a href="{{ route('password.request') }}" class="pull-right mt-10">Forgot Password?</a>
                         </div>
+
                     </form>
-			</div>
-       </div>
-    </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-</body>
+
+                    <hr class="b-3x">
+
+                    <div class="bg-slategray lt wrap-reset mt-40">
+                        <p class="m-0">
+                            <a href="{{ route('register') }}" class="text-uppercase">Create an account</a>
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+        <!--/ Application Content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- ============================================
+        ============== Vendor JavaScripts ===============
+        ============================================= -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery/jquery-1.11.2.min.js"><\/script>')</script>
+
+        <script src="{{ asset('assets/js/vendor/bootstrap/bootstrap.min.js') }}"></script>
+
+        <script src="{{ asset('assets/js/vendor/jRespond/jRespond.min.js') }}"></script>
+
+        <script src="{{ asset('assets/js/vendor/sparkline/jquery.sparkline.min.js') }}"></script>
+
+        <script src="{{ asset('assets/js/vendor/slimscroll/jquery.slimscroll.min.js') }}"></script>
+
+        <script src="{{ asset('assets/js/vendor/animsition/js/jquery.animsition.min.js') }}"></script>
+
+        <script src="{{ asset('assets/js/vendor/screenfull/screenfull.min.js') }}"></script>
+        <!--/ vendor javascripts -->
+
+
+
+
+        <!-- ============================================
+        ============== Custom JavaScripts ===============
+        ============================================= -->
+        <script src="{{ asset('assets/js/main.js') }}"></script>
+        <!--/ custom javascripts -->
+
+
+
+
+
+
+        <!-- ===============================================
+        ============== Page Specific Scripts ===============
+        ================================================ -->
+        <script>
+            $(window).load(function(){
+
+
+            });
+        </script>
+        <!--/ Page Specific Scripts -->
+
+
+
+
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='https://www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+        </script>
+
+    </body>
 </html>

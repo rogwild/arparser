@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Part;
 use App\Car;
 use App\User;
+use App\Keyword;
+use App\Category;
 
 class ParserController extends Controller
 {
@@ -159,10 +161,20 @@ class ParserController extends Controller
 				$firstEngines = implode(", ", $firstEngines); //соединяем двигатели через запятую
 				$titleOfAd = $title.$firstMark.'('.$firstEngines.')'; //создаем название
 				$titleOfAd = trim($titleOfAd);
+				$user_id = Auth::user()->id;
+				$main_description =$titleOfAd.'';
+				$additional_description_1 ='';
+				$additional_description_2 ='';
+				$additional_description_3 ='';
 				//Добавляем в БД
 				$part = Part::firstOrNew([	
 										'link' => $link
-										], [ 
+										], [
+										'user_id' => $user_id,
+										'main_description' => $main_description,
+										'additional_description_1' => $additional_description_1,
+										'additional_description_2' => $additional_description_2,
+										'additional_description_3' => $additional_description_3,
 										'models' => $modelsToDB, 
 										'category' => $category, 
                                         'titleOfAd' => $titleOfAd, 
@@ -172,7 +184,7 @@ class ParserController extends Controller
                                         'price_main' => $price_main,
                                         'image' => $image]);
 				$part -> save();
-				return view('parser.GetFromDrom', compact('link','title','image', 'price', 'number', 'models', 'engine', 'category', 'title_promo', 'price_main', 'parsed_engine', 'titleOfAd'));
+				return view('parser.GetFromDrom', compact('link','title','image', 'price', 'number', 'models', 'engine', 'category', 'title_promo', 'price_main', 'parsed_engine', 'titleOfAd', 'description', 'main_description','part_description', 'additional_description_1', 'additional_description_2', 'additional_description_3'));
         }
         else {
             return redirect('/login');
@@ -259,7 +271,9 @@ class ParserController extends Controller
 			//$title_promo = $title.' '.$twoModels.' ('.$twoEngines.')'; //автоматическая генерация названия
 			$title_promo = $part->titleOfAd; //ручная генерация названия
 			$titleOfAd = $title;
-			return view('admin.part-page', compact('link','title','image', 'price', 'number', 'models', 'engine', 'category', 'title_promo', 'price_main', 'parsed_engine', 'titleOfAd', 'part', 'translations', 'description'));
+			$keywords = Keyword::get();
+			$part_description = $part->part_description;
+			return view('admin.part-page', compact('link','title','image', 'price', 'number', 'models', 'engine', 'category', 'title_promo', 'price_main', 'parsed_engine', 'titleOfAd', 'part', 'translations', 'description', 'keywords', 'part_description'));
 		}
 		else {
 			return redirect('/login');
@@ -267,7 +281,7 @@ class ParserController extends Controller
     }
 	
 	//Изменить информацию о запчасти
-    public function PartEdit(Part $part, $id, Request $request)
+    public function PartEdit(Keyword $keyword,Part $part, $id, Request $request)
     {
 		if (Auth::check()) {
 			$user = Auth::user();
@@ -284,6 +298,10 @@ class ParserController extends Controller
 				$newNumber = $request['newNumber'];
 				$newAvito_category = $request['newAvito_category'];
 				$newDescription = $request['newDescription'];
+				$newMain_description = $request['newMain_description'];
+				$newPart_description = $request['newPart_description'];
+				//$keyword = Keyword::find('words','==', $newPart_description)->words; //поиск ключевых слов по id в БД
+
 				if ($newTitle != NULL) {
 					$part->titleOfAd=$newTitle;
 						$part->save();
@@ -326,6 +344,14 @@ class ParserController extends Controller
 				}
 				if ($newDescription != NULL) {
 					$part->description=$newDescription;
+						$part->save();
+				}
+				if ($newMain_description != NULL) {
+					$part->main_description=$newMain_description;
+						$part->save();
+				}
+				if ($newPart_description != NULL) {
+					$part->part_description=$newPart_description;
 						$part->save();
 				}
 				return redirect()->back();
