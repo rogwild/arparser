@@ -19,7 +19,7 @@
 			</strong><br /><em>
 			{{ $part->titleOfAd }} в Санкт-Петербурге. </em>&nbsp;Новый!</p>
 			<p>
-				@if ($part->description !== NULL)
+				@if ($part->part_description !== NULL)
 					{{ $part->part_description }}<br />
 				@elseif ($part->description == 1)
 					Комплект для замены цепи ГРМ.<br />
