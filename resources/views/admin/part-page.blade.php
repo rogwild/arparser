@@ -177,7 +177,7 @@
                                                     <div class="tile-body">
 
 
-                                                        <form method='POST' class="form-horizontal ng-pristine ng-valid" role="form" action='{{ action('ParserController@PartEdit', $part->id) }}'>
+                                                        <form method='POST' class="form-horizontal ng-pristine ng-valid" role="form" action='{{ action('ParserController@PartEdit', $part->id) }}' enctype="multipart/form-data">
                                                             {{ csrf_field() }}
 
                                                             <div class="form-group">
@@ -198,6 +198,13 @@
                                                                 <label for="image" class="col-sm-2 control-label">Ссылка на картинку: <span class="text-lightred text-md">*</span></label>
                                                                 <div class="col-sm-10">
                                                                     <input type="text" class="form-control" id="image" name="newImage" placeholder="Item Name" value="{{ $part->image }}">
+                                                                </div>
+                                                            </div>
+                                                               
+                                                            <div class="form-group">
+                                                               <label for="file" class="col-sm-2 control-label">Ссылка на картинку: <span class="text-lightred text-md">*</span></label>
+                                                                <div class="col-sm-10">
+                                                                    <input id="file" type="file" name="newFile" multiple>
                                                                 </div>
                                                             </div>
                                                             

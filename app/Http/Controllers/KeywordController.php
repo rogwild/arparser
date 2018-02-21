@@ -65,10 +65,8 @@ class KeywordController extends Controller
 					$keyword->name=$newName;
 						$keyword->save();
 				}
-				if ($newWords != NULL) {
-					$keyword->words=$newWords;
-						$keyword->save();
-				}
+				$keyword->words=$newWords;
+					$keyword->save();
 				return redirect()->back();
 			}
 			else {

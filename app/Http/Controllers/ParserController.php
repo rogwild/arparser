@@ -8,6 +8,9 @@ use App\Car;
 use App\User;
 use App\Keyword;
 use App\Category;
+use Storage;
+use File;
+use DateTime;
 
 class ParserController extends Controller
 {
@@ -273,6 +276,7 @@ class ParserController extends Controller
 			$titleOfAd = $title;
 			$keywords = Keyword::get();
 			$part_description = $part->part_description;
+			//$link = Storage::disk('local')->url('42.jpg');
 			return view('admin.part-page', compact('link','title','image', 'price', 'number', 'models', 'engine', 'category', 'title_promo', 'price_main', 'parsed_engine', 'titleOfAd', 'part', 'translations', 'description', 'keywords', 'part_description'));
 		}
 		else {
@@ -289,6 +293,7 @@ class ParserController extends Controller
 				$part = Part::find($id);
 				$newTitle = $request['newTitle'];
 				$newImage = $request['newImage'];
+				$newFile = $request['newFile'];
 				//$newModels = $request['newModels'];
 				$newCategory = $request['newCategory'];
 				$newPrice = $request['newPrice'];
@@ -350,8 +355,16 @@ class ParserController extends Controller
 					$part->main_description=$newMain_description;
 						$part->save();
 				}
-				if ($newPart_description != NULL) {
-					$part->part_description=$newPart_description;
+				$part->part_description=$newPart_description;
+					$part->save();
+				if ($newFile != NULL) {
+					$image_name = 'p_'.$part->id.'.jpg';
+					if ($exists = Storage::disk('local')->exists('public/'.$image_name)) {
+						Storage::disk('local')->delete('public/'.$image_name);
+					}
+					Storage::disk('local')->put('public/'.$image_name, File::get($newFile));
+					$link = env('APP_URL').Storage::disk('local')->url('public/'.$image_name);
+					$part->image=$link;
 						$part->save();
 				}
 				return redirect()->back();
