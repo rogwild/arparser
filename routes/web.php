@@ -35,7 +35,7 @@ Route::post('/admin/parts/{id}/edit', 'ParserController@PartEdit')->name('part.e
 Route::get('/admin/parts/{id}/delete', 'ParserController@PartDelete')->name('part.delete');
 Route::get('/admin/parts/{id}/edit', 'ParserController@PartPage');
 
-Route::get('/parts/xml', 'ParserController@PartXML')->name('xml');
+Route::get('/admin/part/xml', 'ParserController@PartXML')->name('xml');
 /*
 Route::get('/parsers/autodoc', 'ParserController@arpartsAutodoc');
 Route::post('/parsers/autodoc', 'ParserController@arpartsAutodocParser');
@@ -48,6 +48,19 @@ Route::post('admin/keywords/create-page/create', 'KeywordController@KeywordCreat
 Route::get('admin/keywords/create-page', 'KeywordController@KeywordPageCreate')->name('keyword-page.create');
 Route::get('admin/keywords/{id}', 'KeywordController@KeywordPage')->name('keyword.page');
 Route::post('admin/keywords/{id}/edit', 'KeywordController@KeywordEdit')->name('keyword.edit');
+
+//Товар в магазине
+Route::get('admin/shops/{shop}/product-create-page', 'ProductController@ProductCreatePage')->name('product.create.page');
+Route::post('admin/shops/{shop}/product-create-page/create', 'ProductController@ProductCreate')->name('product.create');
+Route::get('admin/shops/{shop}/products', 'ProductController@ProductsTable')->name('products.table');
+Route::get('admin/shops/{shop}/products/{product}', 'ProductController@ProductPage')->name('product.page');
+Route::post('admin/shops/{shop}/products/{product}/edit', 'ProductController@ProductEdit')->name('product.edit');
+//Магазин
+Route::get('admin/shop-create-page', 'ShopController@ShopCreatePage')->name('shop.create.page');
+Route::post('admin/shop-create-page/create', 'ShopController@ShopCreate')->name('shop.create');
+Route::get('admin/shops', 'ShopController@ShopsTable')->name('shops.table');
+Route::get('admin/shops/{shop}', 'ShopController@ShopPage')->name('shop.page');
+Route::post('admin/shops/{shop}/edit', 'ShopController@ShopEdit')->name('shop.edit');
 
 
 

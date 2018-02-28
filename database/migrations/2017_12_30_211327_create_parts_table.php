@@ -15,14 +15,13 @@ class CreatePartsTable extends Migration
     {
         Schema::create('parts', function (Blueprint $table) {
             $table->increments('id');
-			$table->text('models');
-			$table->text('translation');
+			$table->text('models')->nullable();
 			$table->string('category');
 			$table->integer('user_id');
 			$table->integer('store_id')->nullable();
 			$table->boolean('visibility')->default(true);
 			$table->string('avito_category')->nullable();
-			$table->text('description');
+			$table->text('description')->nullable();
 			$table->text('main_description')->nullable();
 			$table->text('part_description')->nullable();
 			$table->text('additional_description_1')->nullable();
