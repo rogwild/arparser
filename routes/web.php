@@ -33,7 +33,8 @@ Route::get('/admin/parts/{id}', 'ParserController@IndexPartPage')->name('part.pa
 Route::post('/admin/parts/{id}/edit', 'ParserController@PartEdit')->name('part.edit');
 //Route::get('/parsers/parts/{id}/updatetranslation', 'ParserController@UpdateTranslation');
 Route::get('/admin/parts/{id}/delete', 'ParserController@PartDelete')->name('part.delete');
-Route::get('/admin/parts/{id}/edit', 'ParserController@PartPage');
+//Route::get('/admin/parts/{id}/edit', 'ParserController@PartPage');
+Route::get('/admin/parts/{id}/part-to-shop/{shop}', 'ParserController@PartToShop')->name('part.to.shop');
 
 Route::get('/admin/part/xml', 'ParserController@PartXML')->name('xml');
 /*
@@ -55,6 +56,8 @@ Route::post('admin/shops/{shop}/product-create-page/create', 'ProductController@
 Route::get('admin/shops/{shop}/products', 'ProductController@ProductsTable')->name('products.table');
 Route::get('admin/shops/{shop}/products/{product}', 'ProductController@ProductPage')->name('product.page');
 Route::post('admin/shops/{shop}/products/{product}/edit', 'ProductController@ProductEdit')->name('product.edit');
+Route::get('admin/shops/{shop}/products/{product}/delete', 'ProductController@ProductDelete')->name('product.delete');
+Route::get('admin/shops/{shop}/products-xml', 'ProductController@ProductsXML')->name('products.xml');
 //Магазин
 Route::get('admin/shop-create-page', 'ShopController@ShopCreatePage')->name('shop.create.page');
 Route::post('admin/shop-create-page/create', 'ShopController@ShopCreate')->name('shop.create');

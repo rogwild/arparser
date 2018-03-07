@@ -8,6 +8,8 @@ use App\Car;
 use App\User;
 use App\Keyword;
 use App\Category;
+use App\Shop;
+use App\Product;
 use Storage;
 use File;
 use DateTime;
@@ -493,6 +495,28 @@ class ParserController extends Controller
 			$car->translate=$translate;
 				$car->save();
 			return redirect()->back();
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
+	//Получить XML файл с запчастями
+    public function PartToShop($id, $shopId)
+    {
+		if (Auth::check()) {
+			$shop = Shop::find($shopId);
+			$part = Part::find($id);
+			$product = Product::create([
+					'name' => $part->titleOfAd, 
+					'price' => $part->price,
+					'description' => $part->parsed_engine,
+					'meta' => $part->parsed_engine,
+					'models'=> $part->models,
+					'image' => $part->image,
+					'shop_id' => $shop->id]);
+			$product->save();
+			return redirect()->route('products.table',['id' => $shop->id]);
 		}
 		else {
 			return redirect('/login');

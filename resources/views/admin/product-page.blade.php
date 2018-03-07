@@ -32,6 +32,12 @@
                             <div class="nav-heading">
                                <img src="{{ $shop->image }}" alt="" class="img-thumbnail" style="width:40px;">
                                 <h3>{{ $product->name }}<strong class="text-greensea"></strong></h3>
+                                <span class="controls pull-right">
+                                  <!--<a href="shop-products.html" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20 mr-5" data-toggle="tooltip" title="Back"><i class="fa fa-times"></i></a>
+                                  <a href="javascript:;" class="btn btn-ef btn-ef-1 btn-ef-1-success btn-ef-1a btn-rounded-20 mr-5" data-toggle="tooltip" title="Save"><i class="fa fa-check"></i></a>
+                                  <a href="javascript:;" class="btn btn-ef btn-ef-1 btn-ef-1-danger btn-ef-1a btn-rounded-20 mr-5" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>-->
+                                  <a href="{{ route('product.delete',[$shop->id, $product->id]) }}" class="btn btn-ef btn-ef-1 btn-ef-1-danger btn-ef-1a btn-rounded-20 mr-5" data-toggle="tooltip" title="Удалить"><i class="fa fa-trash"></i></a>
+                                </span>
                             </div>
 
                             <div role="tabpanel">
@@ -84,6 +90,9 @@
 
                                                                 <p class="short-desc text-sm text-default lt mb-20"></p>
                                                                 <p class="desc text-default lt mb-20">{{ $product->description }}</p>
+                                                                
+                                                                <p class="short-desc text-sm text-default lt mb-0">Мета-теги:</p>
+                                                                <p class="desc text-default lt mb-20">{{ $product->meta }}</p>
 
                                                                 <p class="tags">
 																	@foreach ($translations as $translation)
@@ -175,6 +184,13 @@
                                                                 <label for="models" class="col-sm-2 control-label">Модельный ряд: <span class="text-lightred text-md">*</span></label>
                                                                 <div class="col-sm-10">
                                                                     <input type="text" class="form-control" id="models" name="models" placeholder="Автомобили через запятую Toyota Crown" value="{{ $product->models }}">
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="form-group">
+                                                                <label for="meta" class="col-sm-2 control-label">Теги (через запятую): <span class="text-lightred text-md">*</span></label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" id="meta" name="meta" placeholder="Автомобили через запятую Toyota Crown" value="{{ $product->meta }}">
                                                                 </div>
                                                             </div>
                                                             

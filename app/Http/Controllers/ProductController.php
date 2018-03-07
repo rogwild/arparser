@@ -38,6 +38,9 @@ class ProductController extends Controller
 					array_push ($translations, $translation); //добавляем данные в таблицу
 				}
 			}
+			else {
+				$translations = array();
+			}
 			if ($product->shop_id == $shop->id) {
 				return view('admin.product-page', compact('shop', 'product', 'translations'));
 			}
@@ -73,6 +76,7 @@ class ProductController extends Controller
 					'name' => $request['name'], 
 					'price' => $request['price'],
 					'description' => $request['description'],
+					'meta' => $request['meta'],
 					'shop_id' => $shop->id]);
 			$product -> save();
 			$models = $request['models']; //получаем значения моделей из request
@@ -122,6 +126,7 @@ class ProductController extends Controller
 			if ($product->shop_id == $shop->id) {
 				$product->name=$request['name'];
 				$product->price=$request['price'];
+				$product->meta=$request['meta'];
 				$product->description=$request['description'];
 				$models = $request['models']; //получаем значения моделей из request
 				$marks = explode(',', $models); //преобразуем в массив
@@ -160,6 +165,31 @@ class ProductController extends Controller
 		}
     }
 	
+	//Удалить товар из магазина
+    public function ProductDelete($shopId, $productId)
+    {
+		if (Auth::check()) {
+			$user = Auth::user();
+			$shop = Shop::find($shopId);
+			$product = Product::findOrFail($productId);
+			if ($user -> type == 'admin') {
+				if ($product->shop_id == $shop->id) {
+					$product->delete();
+					return redirect()->route('products.table',['id' => $shop->id]);
+				}
+				else {
+					return redirect()->back();
+				}
+			}
+			else {
+				return redirect()->back();
+			}
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
 	//Страница со списком магазинов
     public function ProductsTable($shopId)
     {
@@ -167,6 +197,19 @@ class ProductController extends Controller
 			$shop = Shop::find($shopId);
 			$products = Product::where('shop_id', $shop->id)->orderBy('created_at', 'desc')->get();
 			return view('admin.products-table', compact('products', 'shop'));
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
+	//Получить XML файл с запчастями
+    public function ProductsXML(Part $part, Car $car, $shopId)
+    {
+		if (Auth::check()) {
+			$shop = Shop::find($shopId);
+			$products = Product::where('shop_id', $shop->id)->orderBy('created_at', 'desc')->get();
+			return view('admin.products-xml', compact('products', 'collection'));
 		}
 		else {
 			return redirect('/login');

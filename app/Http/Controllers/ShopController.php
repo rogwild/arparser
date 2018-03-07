@@ -24,8 +24,22 @@ class ShopController extends Controller
 			$user = Auth::user()->id;
 			if (Auth::user()->type == 'admin') {
 				$shop = Shop::find($shopId);
-				$products = Product::where('shop_id',$shop->id)->get();
-				return view('admin.shop-page', compact('shop','products'));
+				$products = Product::where('shop_id',$shop->id)->orderBy('created_at', 'desc')->get();
+				$parts = Part::orderBy('created_at', 'desc')->get();
+				foreach ($parts as $part) {
+					$models = $part->models;
+					$models = explode(',', $models);
+					$translations = array();
+					foreach ($models as $model) {
+						$model = trim($model);
+						$car = Car::where('alias', $model)->first();
+						$translation = $car->title.' ('.$car->translate.'),';
+						array_push ($translations, $translation);
+					}
+					//array_splice($translations, 5);
+					//print_r($translate);
+				}
+				return view('admin.shop-page', compact('shop','products', 'parts'));
 			}
 			else {
 				return redirect()->back();

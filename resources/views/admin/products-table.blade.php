@@ -44,6 +44,23 @@
                                             <li><a href="{{ route('product.create.page',[$shop->id]) }}"><i class="fa fa-plus mr-5"></i> Новый товар</a></li>
                                             <li class="dropdown">
 
+                                                <a role="button" tabindex="0" class="dropdown-toggle" data-toggle="dropdown">Инструменты <i class="fa fa-angle-down ml-5"></i></a>
+
+                                                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                                    <li>
+                                                        <a href="{{ route('products.xml', [$shop->id]) }}">Экспортировать в XML</a>
+                                                    </li>
+                                                    <!--
+                                                    <li role="presentation" class="divider"></li>
+                                                    <li>
+                                                        <a href>Печать счетов-фактур</a>
+                                                    </li>-->
+
+                                                </ul>
+
+                                            </li>
+                                            <li class="dropdown">
+
                                                 <a role="button" tabindex="0" class="dropdown-toggle settings" data-toggle="dropdown">
                                                     <i class="fa fa-cog"></i>
                                                     <i class="fa fa-spinner fa-spin"></i>
