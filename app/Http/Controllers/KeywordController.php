@@ -34,7 +34,7 @@ class KeywordController extends Controller
 		}
     }
 	
-	//Таблица ключевых слов
+	//Создать ключевое слово (роут)
     public function KeywordCreate(Request $request)
     {
 		if (Auth::check()) {

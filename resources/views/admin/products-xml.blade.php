@@ -48,6 +48,28 @@
 		<!-- КОНЕЦ В мета-теги -->
 		
 		</Description>
+		@php
+			if ($product->category_id != NULL) {
+				$category = DB::table('categories')->where('id', $product->category_id)->first();
+				$nameOfCategory = $category->name;
+				if ($category->parent_id != 0) {
+					$parentCategory = DB::table('categories')->where('id', $category->parent_id)->first();
+					$nameOfParentCategory = $parentCategory->name;
+					echo "<parentcategory>$nameOfParentCategory</parentcategory><br/>";
+					echo "<category>$nameOfCategory</category>";
+				}
+				else {
+					$nameOfParentCategory = $nameOfCategory;
+					echo "<category>$nameOfCategory</category>";
+				}
+			}
+			else {
+				$nameOfParentCategory = '';
+				$nameOfCategory = '';
+				echo "<parentcategory>$nameOfParentCategory</parentcategory>";
+				echo "<category>$nameOfCategory</category>";
+			}
+		@endphp
 		
 		<!-- НАЧАЛО В цену -->
 		<Price>{{ $product->price }}</Price>

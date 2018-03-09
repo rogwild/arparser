@@ -93,6 +93,9 @@
                                                                 
                                                                 <p class="short-desc text-sm text-default lt mb-0">Мета-теги:</p>
                                                                 <p class="desc text-default lt mb-20">{{ $product->meta }}</p>
+                                                                
+                                                                <p class="short-desc text-sm text-default lt mb-0">Категория:</p>
+                                                                <p class="desc text-default lt mb-20">{{ $nameOfCategory }}</p>
 
                                                                 <p class="tags">
 																	@foreach ($translations as $translation)
@@ -184,6 +187,23 @@
                                                                 <label for="models" class="col-sm-2 control-label">Модельный ряд: <span class="text-lightred text-md">*</span></label>
                                                                 <div class="col-sm-10">
                                                                     <input type="text" class="form-control" id="models" name="models" placeholder="Автомобили через запятую Toyota Crown" value="{{ $product->models }}">
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="form-group">
+                                                                <label for="category" class="col-sm-2 control-label">Категория: <span class="text-lightred text-md">
+                                                                </span></label>
+                                                                <div class="col-sm-10">
+                                                                    <select tabindex="3" id="category" class="chosen-select" name="category" style="width: 100%;">
+                                                                       <option value="{{ $product->category_id }}">
+																			{{ $nameOfCategory }}
+																		</option>
+																	   @foreach ($categories as $category)
+																			<option value="{{ $category->id }}">
+																				{{ $category->name }}
+																			</option>
+																		@endforeach
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             

@@ -27,6 +27,14 @@ class ProductController extends Controller
 			$shop = Shop::find($shopId);
 			$product = Product::findOrFail($productId);
 			$models = $product->models;
+			$categories = Category::get();
+			if ($product->category_id != NULL) {
+				$category = Category::find($product->category_id);
+				$nameOfCategory = $category->name;
+			}
+			else {
+				$nameOfCategory = "Категория не назначена";
+			}
 			if ($models != NULL) {
 				// получили данные
 				$models = explode(',', $models); //создаем массив из моеделей авто
@@ -42,7 +50,7 @@ class ProductController extends Controller
 				$translations = array();
 			}
 			if ($product->shop_id == $shop->id) {
-				return view('admin.product-page', compact('shop', 'product', 'translations'));
+				return view('admin.product-page', compact('shop', 'product', 'translations', 'nameOfCategory', 'categories'));
 			}
 			else {
 				return redirect()->back();
@@ -127,6 +135,7 @@ class ProductController extends Controller
 				$product->name=$request['name'];
 				$product->price=$request['price'];
 				$product->meta=$request['meta'];
+				$product->category_id=$request['category'];
 				$product->description=$request['description'];
 				$models = $request['models']; //получаем значения моделей из request
 				$marks = explode(',', $models); //преобразуем в массив
@@ -209,7 +218,8 @@ class ProductController extends Controller
 		if (Auth::check()) {
 			$shop = Shop::find($shopId);
 			$products = Product::where('shop_id', $shop->id)->orderBy('created_at', 'desc')->get();
-			return view('admin.products-xml', compact('products', 'collection'));
+			$categories = Category::get();
+			return view('admin.products-xml', compact('products', 'collection', 'categories'));
 		}
 		else {
 			return redirect('/login');

@@ -50,6 +50,13 @@ Route::get('admin/keywords/create-page', 'KeywordController@KeywordPageCreate')-
 Route::get('admin/keywords/{id}', 'KeywordController@KeywordPage')->name('keyword.page');
 Route::post('admin/keywords/{id}/edit', 'KeywordController@KeywordEdit')->name('keyword.edit');
 
+//страници с категориями
+Route::get('admin/categories-table', 'CategoryController@CategoriesTable')->name('categories.table');
+Route::post('admin/categories/create-page/create', 'CategoryController@CategoryCreate')->name('category.create');
+Route::get('admin/categories/create-page', 'CategoryController@CategoryPageCreate')->name('category-page.create');
+Route::get('admin/categories/{id}', 'CategoryController@CategoryPage')->name('category.page');
+Route::post('admin/categories/{id}/edit', 'CategoryController@CategoryEdit')->name('category.edit');
+
 //Товар в магазине
 Route::get('admin/shops/{shop}/product-create-page', 'ProductController@ProductCreatePage')->name('product.create.page');
 Route::post('admin/shops/{shop}/product-create-page/create', 'ProductController@ProductCreate')->name('product.create');

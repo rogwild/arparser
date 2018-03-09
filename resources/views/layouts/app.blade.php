@@ -506,6 +506,7 @@
                                             </li>
                                             <li><a href="{{ route('cars.table') }}"><i class="fa fa-car"></i> <span>Автомобили</span></a></li>
                                             <li><a href="{{ route('parts.table') }}"><i class="fa fa-gear"></i> <span>Запчасти</span></a></li>
+                                            <li><a href="{{ route('categories.table') }}"><i class="fa fa-sitemap"></i> <span>Категории</span></a></li>
                                             <li><a href="{{ route('keywords.table') }}"><i class="fa fa-tag"></i> <span>Ключевые слова</span></a></li>
                                             <!--
                                             <li>
