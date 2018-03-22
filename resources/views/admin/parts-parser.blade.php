@@ -10,7 +10,7 @@
 
                     <div class="pageheader">
 
-                        <h2>Common Elements <span>// You can place subtitle here</span></h2>
+                        <h2>{{ $page_name }}<span></span></h2>
 
                         <div class="page-bar">
 
@@ -78,11 +78,11 @@
                                 <!-- tile body -->
                                 <div class="tile-body">
 
-                                    <form method='POST' action='{{ action('ParserController@DromParser') }}' class="form-horizontal" role="form" enctype="multipart/form-data">
+                                    <form method='POST' action='{{ $action }}' class="form-horizontal" role="form" enctype="multipart/form-data">
                                         {{ csrf_field() }}
 
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">DROM.ru</label>
+                                            <label class="col-sm-2 control-label">{{ $page_name }}</label>
                                             <div class="col-sm-10">
                                                 <div class="input-group">
                                                     <input name="html" type="text" class="form-control">

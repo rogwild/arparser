@@ -502,6 +502,7 @@
                                                 <a role="button" tabindex="0"><i class="fa fa-pencil"></i> <span>Парсеры</span></a>
                                                 <ul>
                                                     <li><a href="{{ route('parser.drom') }}"><i class="fa fa-caret-right"></i> Drom.ru </a></li>
+                                                    <li><a href="{{ route('parser.our.drom') }}"><i class="fa fa-caret-right"></i> Drom.ru Arparts</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="{{ route('cars.table') }}"><i class="fa fa-car"></i> <span>Автомобили</span></a></li>

@@ -22,7 +22,9 @@ Route::get('admin/home', 'HomeController@index')->name('admin.home');
 Route::get('/parsers', 'ParserController@index');
 //страница парсера с Дром
 Route::post('/parsers/drom', 'ParserController@DromParser');
+Route::post('/parsers/ourdrom', 'ParserController@OurDromParser');
 Route::get('admin/parsers/drom', 'ParserController@LinkToDrom')->name('parser.drom');
+Route::get('admin/parsers/ourdrom', 'ParserController@LinkToOurDrom')->name('parser.our.drom');
 //страница с таблицей автомобилей
 Route::get('/admin/cars-table', 'ParserController@CarsTable')->name('cars.table');
 Route::post('/parsers/cars/{id}/translate', 'ParserController@CarTranslate')->name('car.translate');
