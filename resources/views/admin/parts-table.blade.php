@@ -144,7 +144,7 @@
 													</small>
 												  </p>
 												  </td>
-												  <td>{{ $part->part_description }}</td>
+												  <td>{{ $part->main_description }}</td>
 												  <td>{{ $part->avito_category }}</td>
 												  <td>
 													{{ $part->price }} <br>

@@ -23,8 +23,10 @@ Route::get('/parsers', 'ParserController@index');
 //страница парсера с Дром
 Route::post('/parsers/drom', 'ParserController@DromParser');
 Route::post('/parsers/ourdrom', 'ParserController@OurDromParser');
+Route::post('/parsers/ourdrom', 'ParserController@OurTuningDromParser');
 Route::get('admin/parsers/drom', 'ParserController@LinkToDrom')->name('parser.drom');
 Route::get('admin/parsers/ourdrom', 'ParserController@LinkToOurDrom')->name('parser.our.drom');
+Route::get('admin/parsers/our-tuning-drom', 'ParserController@LinkToOurTuningDrom')->name('our.tuning.drom.parser');
 //страница с таблицей автомобилей
 Route::get('/admin/cars-table', 'ParserController@CarsTable')->name('cars.table');
 Route::post('/parsers/cars/{id}/translate', 'ParserController@CarTranslate')->name('car.translate');

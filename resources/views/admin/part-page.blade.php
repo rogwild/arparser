@@ -201,10 +201,19 @@
                                                                 </div>
                                                             </div>
                                                                
-                                                            <div class="form-group">
-                                                               <label for="file" class="col-sm-2 control-label">Ссылка на картинку: <span class="text-lightred text-md">*</span></label>
+														   <div class="form-group">
+                                                                <label for="image" class="col-sm-2 control-label">Ссылка на картинку: <span class="text-lightred text-md">*</span></label>
                                                                 <div class="col-sm-10">
-                                                                    <input id="file" type="file" name="newFile" multiple>
+                                                                    <input type="text" class="form-control" id="image" name="newImage" placeholder="Item Name" value="{{ $part->image }}">
+                                                                </div>
+                                                            </div>
+                                                               
+                                                            <div class="form-group">
+                                                                <label for="main_description" class="col-sm-2 control-label">Описание: <span class="text-lightred text-md">*</span></label>
+                                                                <div class="col-sm-10">
+                                                                    <textarea class="form-control" rows="5" name="main_description" id="main_description" placeholder="{{ $part->main_description }}">
+                                                                    {{ $part->main_description }}
+                                                                    </textarea>
                                                                 </div>
                                                             </div>
                                                             
