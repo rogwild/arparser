@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return redirect()->route('admin.home');
+    //return redirect()->route('admin.home');
 });
 
 Auth::routes();
@@ -80,3 +80,8 @@ Route::post('admin/shops/{shop}/edit', 'ShopController@ShopEdit')->name('shop.ed
 
 //Генератор страниц для Arparts
 Route::get('/arparts', 'PageController@index');
+
+//Генератор страниц для Arparts
+Route::get('/', 'PartController@MainPage')->name('shop.main.page');
+Route::get('/all-parts', 'PartController@AllPartsPage')->name('shop.all.parts.page');
+Route::get('/part/{part}', 'PartController@PartPage')->name('shop.part.page');

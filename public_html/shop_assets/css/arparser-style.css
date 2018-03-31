@@ -1,0 +1,39 @@
+h1,h2,h3,h4,h5,h6 {
+	font-family: "Arial",sans-serif;
+	font-weight:600;
+	line-height:1;
+	margin:0 0 30px 0
+}
+
+#main-navbar ul li>a, .sidebar .sidebar-widget .media-list .media-body a {
+	font-family: "Arial",sans-serif;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+	background-color: #e47282;
+	border-color: #e47282;
+}
+
+@media screen and (max-width: 767px) {
+	.masonry[data-columns]::before {
+		content: '1 .col-xs-12';
+	}
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+	.masonry[data-columns]::before {
+		content: '2 .col-xs-6';
+	}
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+	.masonry[data-columns]::before {
+		content: '3 .col-xs-4';
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	.masonry[data-columns]::before {
+		content: '4 .col-xs-3';
+	}
+}

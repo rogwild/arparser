@@ -20,7 +20,7 @@ class ShopController extends Controller
     //Страница магазина в админке
     public function ShopPage($shopId)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$user = Auth::user()->id;
 			if (Auth::user()->type == 'admin') {
 				$shop = Shop::find($shopId);
@@ -53,7 +53,7 @@ class ShopController extends Controller
 	//Старинца создания магазина
     public function ShopCreatePage()
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			return view('admin.shop-create-page');
 		}
 		else {
@@ -64,7 +64,7 @@ class ShopController extends Controller
 	//Создание магазина - роут
     public function ShopCreate(Request $request)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			//$shop_name = $request['name'];
 			//$user_id = Auth::user()->id;
 			$shop = Shop::create([
@@ -81,7 +81,7 @@ class ShopController extends Controller
 	//Изменить информацию о магазине - роут
     public function ShopEdit(Request $request, $shopId)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$shop = Shop::find($shopId);
 			if ($shop->user_id == Auth::user()->id) {
 				$shop->name=$request['name'];
@@ -111,7 +111,7 @@ class ShopController extends Controller
 	//Страница со списком магазинов
     public function ShopsTable()
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$shops = Shop::orderBy('created_at', 'desc')->get();
 			return view('admin.shops-table', compact('shops'));
 		}

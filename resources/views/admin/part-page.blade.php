@@ -231,6 +231,7 @@
                                                                        <option value="{{ $part->avito_category }}">
 																			Нынешнее значение | {{ $part->avito_category }}
 																		</option>
+                                                                       <option value="22">22 Тюнинг</option>
                                                                         <option value="11-618">11-618 Автосвет</option>
 																		<option value="11-619">11-619 Аккумуляторы</option>
 																		<option value="11-621">11-621 Запчасти для ТО</option>

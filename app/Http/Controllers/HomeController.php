@@ -27,24 +27,30 @@ class HomeController extends Controller
      */
     public function index()
     {
-		$administrator_name = Auth::user()->name;
-		$amount_of_parts = Part::count();
-		$amount_of_cars = Car::count();
-		$amount_of_users = User::count();
-		$xmlRoute = route('xml');
-		$parts = Part::orderBy('created_at', 'desc')->take(15)->get();
-		foreach ($parts as $part) {
-			$models = $part->models;
-			$models = explode(',', $models);
-			$translations = array();
-			foreach ($models as $model) {
-				$model = trim($model);
-				$car = Car::where('alias', $model)->first();
-				$translation = $car->title.' ('.$car->translate.'),';
-				array_push ($translations, $translation);
+		if (Auth::check() and Auth::user()->type == 'admin') {
+			$administrator_name = Auth::user()->name;
+			$amount_of_parts = Part::count();
+			$amount_of_cars = Car::count();
+			$amount_of_users = User::count();
+			$xmlRoute = route('xml');
+			$parts = Part::orderBy('created_at', 'desc')->take(15)->get();
+			foreach ($parts as $part) {
+				$models = $part->models;
+				$models = explode(',', $models);
+				$translations = array();
+				foreach ($models as $model) {
+					$model = trim($model);
+					$car = Car::where('alias', $model)->first();
+					$translation = $car->title.' ('.$car->translate.'),';
+					array_push ($translations, $translation);
+				}
 			}
+			$cars = Car::orderBy('created_at', 'desc')->take(15)->get();
+			return view('admin.home', compact('administrator_name', 'amount_of_cars','amount_of_parts','amount_of_users', 'parts', 'translations', 'xmlRoute', 'cars'));
 		}
-		$cars = Car::orderBy('created_at', 'desc')->take(15)->get();
-        return view('admin.home', compact('administrator_name', 'amount_of_cars','amount_of_parts','amount_of_users', 'parts', 'translations', 'xmlRoute', 'cars'));
+		else {
+			return redirect()->back();
+		}
+		
     }
 }

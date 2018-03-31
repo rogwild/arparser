@@ -22,7 +22,7 @@ class ProductController extends Controller
     //Страница товара в магазине (в админке)
     public function ProductPage($shopId, $productId)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$user = Auth::user()->id;
 			$shop = Shop::find($shopId);
 			$product = Product::findOrFail($productId);
@@ -64,7 +64,7 @@ class ProductController extends Controller
 	//Старинца создания товара в магазине (в админке)
     public function ProductCreatePage($shopId)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$shop = Shop::find($shopId);
 			return view('admin.product-create-page', compact('shop'));
 		}
@@ -76,7 +76,7 @@ class ProductController extends Controller
 	//Создание товара - роут
     public function ProductCreate($shopId, Request $request)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			//$shop_name = $request['name'];
 			//$user_id = Auth::user()->id;
 			$shop = Shop::find($shopId);
@@ -127,7 +127,7 @@ class ProductController extends Controller
 	//Изменить информацию о товаре - роут
     public function ProductEdit(Request $request, $shopId, $productId)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$user = Auth::user()->id;
 			$shop = Shop::find($shopId);
 			$product = Product::findOrFail($productId);
@@ -177,7 +177,7 @@ class ProductController extends Controller
 	//Удалить товар из магазина
     public function ProductDelete($shopId, $productId)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$user = Auth::user();
 			$shop = Shop::find($shopId);
 			$product = Product::findOrFail($productId);
@@ -202,7 +202,7 @@ class ProductController extends Controller
 	//Страница со списком магазинов
     public function ProductsTable($shopId)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$shop = Shop::find($shopId);
 			$products = Product::where('shop_id', $shop->id)->orderBy('created_at', 'desc')->get();
 			return view('admin.products-table', compact('products', 'shop'));
@@ -215,7 +215,7 @@ class ProductController extends Controller
 	//Получить XML файл с запчастями
     public function ProductsXML(Part $part, Car $car, $shopId)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$shop = Shop::find($shopId);
 			$products = Product::where('shop_id', $shop->id)->orderBy('created_at', 'desc')->get();
 			$categories = Category::get();

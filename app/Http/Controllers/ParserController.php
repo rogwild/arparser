@@ -19,7 +19,7 @@ class ParserController extends Controller
     //Выбор парсера
     public function index(Request $request)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			return view('parser.chooseParser');
 		}
 		else {
@@ -30,7 +30,7 @@ class ParserController extends Controller
 	//Выбор парсера
     public function LinkToDrom()
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$page_name = 'DROM.RU';
 			$link = 'baza.drom.ru';
 			$action = action('ParserController@DromParser');
@@ -44,7 +44,7 @@ class ParserController extends Controller
 	//Выбор парсера
     public function LinkToOurDrom()
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$page_name = 'DROM.RU (страница Arparts, наценка производиться не будет)';
 			$link = 'baza.drom.ru';
 			$action = action('ParserController@OurDromParser');
@@ -58,7 +58,7 @@ class ParserController extends Controller
 	//Выбор парсера
     public function LinkToOurTuningDrom()
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$page_name = 'DROM.RU (страница Arparts, наценка производиться не будет)';
 			$link = 'baza.drom.ru Tuning';
 			$action = action('ParserController@OurTuningDromParser');
@@ -72,7 +72,7 @@ class ParserController extends Controller
 	//Создать деталь вручную
     public function CreatePartByHands(Request $request)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$link = $request['html'];
 			foreach ($marks as $mark) {
 					$alias = preg_replace("/ /","",$mark);
@@ -107,7 +107,7 @@ class ParserController extends Controller
 	//Парсер с Drom.ru
     public function DromParser(Request $request)
     {
-        if (Auth::check()) {
+        if (Auth::check() and Auth::user()->type == 'admin') {
             $link = $request['html'];
 			$html = new \Htmldom($link);
             $title_promo=$html->find('h1.subject span', 0)->plaintext;
@@ -227,7 +227,7 @@ class ParserController extends Controller
 	//Парсер с Drom.ru (из нашего магазина, без накрутки)
     public function OurDromParser(Request $request)
     {
-        if (Auth::check()) {
+        if (Auth::check() and Auth::user()->type == 'admin') {
             $link = $request['html'];
 			$html = new \Htmldom($link);
             $title_promo=$html->find('h1.subject span', 0)->plaintext;
@@ -347,7 +347,7 @@ class ParserController extends Controller
 	//Парсер с Drom.ru (из нашего магазина, без накрутки)
     public function OurTuningDromParser(Request $request)
     {
-        if (Auth::check()) {
+        if (Auth::check() and Auth::user()->type == 'admin') {
             $link = $request['html'];
 			$html = new \Htmldom($link);
             $title_promo=$html->find('h1.subject span', 0)->plaintext;
@@ -482,7 +482,7 @@ class ParserController extends Controller
 	//База объявлений
     public function PartsTable()
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$xmlRoute = route('xml');
 			$parts = Part::orderBy('created_at', 'desc')->get();
 			foreach ($parts as $part) {
@@ -508,7 +508,7 @@ class ParserController extends Controller
 	//Страница из
     public function PartPage($id, Request $request)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$part = Part::find($id);
 			$action = action('ParserController@PartEdit', $id);
 			return view('parser.PartPage', compact('part', 'action'));
@@ -521,7 +521,7 @@ class ParserController extends Controller
 	//Страница из БД
     public function IndexPartPage($id, Part $part)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$part = Part::find($id); //находим элемент в БД
 			// получаем данные по элементу
 			$link = $part->link;
@@ -572,7 +572,7 @@ class ParserController extends Controller
 	//Изменить информацию о запчасти
     public function PartEdit(Keyword $keyword,Part $part, $id, Request $request)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$user = Auth::user();
 			if ($user -> type == 'admin') {
 				$part = Part::find($id);
@@ -698,7 +698,7 @@ class ParserController extends Controller
 	//Изменить транскрипцию названия автомобиля
     public function PartDelete(Part $part, $id, Request $request)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$user = Auth::user();
 			if ($user -> type == 'admin') {
 				$part = Part::find($id);
@@ -718,7 +718,7 @@ class ParserController extends Controller
 	//Получить XML файл
     public function PartXML(Part $part, Car $car)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$parts = Part::all();
 			/*foreach ($parts as $part) {
 				$models = $part->models;
@@ -747,7 +747,7 @@ class ParserController extends Controller
 	//База автомобилей
     public function CarsTable()
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$cars = Car::orderBy('title', 'desc')->get();
 			return view('admin.cars-table', compact('cars'));
 		}
@@ -772,7 +772,7 @@ class ParserController extends Controller
 	//Изменить транскрипцию названия автомобиля
     public function CarTranslate(Car $car, $id, Request $request)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$car = Car::find($id);
 			$translate = $request['translate'];
 			$car->translate=$translate;
@@ -787,7 +787,7 @@ class ParserController extends Controller
 	//Получить XML файл с запчастями
     public function PartToShop($id, $shopId)
     {
-		if (Auth::check()) {
+		if (Auth::check() and Auth::user()->type == 'admin') {
 			$shop = Shop::find($shopId);
 			$part = Part::find($id);
 			$product = Product::create([
