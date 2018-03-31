@@ -211,7 +211,7 @@
 												</div>
 											</div>
 											<div class="product-detail">
-												<h4><a href="product-detail.html">{{ $part->titleOfAd }}</a></h4>
+												<h4><a href="{{ route('shop.part.page',[$part->id]) }}">{{ $part->titleOfAd }}</a></h4>
 												<span class="price">{{ $part->price }}</span>
 												<button class="add-to-cart" data-toggle="modal" data-target="#myModal"><i class="fa fa-angle-right"></i> Купить</button>
 											</div>

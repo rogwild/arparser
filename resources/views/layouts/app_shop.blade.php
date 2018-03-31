@@ -182,8 +182,8 @@
                     ============================================= -->
 
                     <div id="branding">
-                        <a href="index.html" class="brand-normal"><img src="{{ asset('shop_assets/images/logo-dark.png') }}" alt="Arparser"></a>
-                        <a href="index.html" class="brand-retina"><img src="{{ asset('shop_assets/images/logo@2x-dark.png') }}" alt="Arparser"></a>
+                        <a href="{{ route('shop.main.page') }}" class="brand-normal"><img src="{{ asset('shop_assets/images/logo-dark.png') }}" alt="Arparser"></a>
+                        <a href="{{ route('shop.main.page') }}" class="brand-retina"><img src="{{ asset('shop_assets/images/logo@2x-dark.png') }}" alt="Arparser"></a>
                     </div><!-- #branding end -->
 
 
