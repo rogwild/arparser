@@ -50,8 +50,12 @@
 					<li>{{ $translation }}</li>
 				@endforeach
 			</ul>
-			<p><strong>Для двигателей: </strong>&nbsp; {{ $part->parsed_engine }} <br /><strong>
-			Номер детали: {{ $part->number }}
+			@if ($part->parsed_engine != NULL)
+				<p><strong>Для двигателей: </strong>&nbsp; {{ $part->parsed_engine }} <br /><strong>
+			@endif
+			@if ($part->number != NULL)
+				Номер детали: {{ $part->number }}
+			@endif
 			<em>
 			Так же есть детали других производителей новые и контрактные!</em><br />
 			Качественная установка купленных автозапчастей в нашем автосервисе с 20% скидкой!<br />

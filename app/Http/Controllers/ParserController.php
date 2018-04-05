@@ -484,7 +484,7 @@ class ParserController extends Controller
     {
 		if (Auth::check() and Auth::user()->type == 'admin') {
 			$xmlRoute = route('xml');
-			$parts = Part::orderBy('created_at', 'desc')->get();
+			$parts = Part::orderBy('created_at', 'desc')->paginate(40);
 			foreach ($parts as $part) {
 				$models = $part->models;
 				$models = explode(',', $models);
@@ -579,7 +579,25 @@ class ParserController extends Controller
 				$newTitle = $request['newTitle'];
 				$newImage = $request['newImage'];
 				$newFile = $request['newFile'];
-				//$newModels = $request['newModels'];
+				//Начало Редактирование списка автомобилей
+				$models = $request['models']; //получаем значения моделей из request
+				$marks = explode(',', $models); //преобразуем в массив
+				$alias_models = array(); //пустой массив для новых марок автомобилей
+				foreach ($marks as $mark) {
+					$alias = preg_replace("/ /","",$mark);
+					//находим значение или создаем новое
+					$tableCar = Car::firstOrNew([
+													'alias' => $alias
+													], [
+													'title' => $mark,
+													'translate' => ''
+													]);
+					$tableCar->save();
+					array_push($alias_models, $alias); //добавляем в конец массива алиас модели
+				}
+				$part->models = implode(",", $alias_models);
+				$part->save();
+				//Конец Редактирвоания списка автомобилей
 				$newCategory = $request['newCategory'];
 				$newPrice = $request['newPrice'];
 				$newPrice_main = $request['newPrice_main'];
@@ -601,7 +619,7 @@ class ParserController extends Controller
 						$part->save();
 				}
 				/*if ($newModels != NULL) {
-					$part->models=$newModels;
+					$part->models=$models;
 						$part->save();
 				}*/
 				if ($newCategory != NULL) {
@@ -793,7 +811,7 @@ class ParserController extends Controller
 			$product = Product::create([
 					'name' => $part->titleOfAd, 
 					'price' => $part->price,
-					'description' => $part->parsed_engine,
+					'description' => $part->main_description,
 					'meta' => $part->parsed_engine,
 					'models'=> $part->models,
 					'image' => $part->image,

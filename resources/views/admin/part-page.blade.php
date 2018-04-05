@@ -326,6 +326,13 @@
                                                                 </div>
                                                             </div>
                                                             
+                                                            <div class="form-group">
+                                                                <label for="models" class="col-sm-2 control-label">Модельный ряд: <span class="text-lightred text-md">*</span></label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" id="models" name="models" placeholder="Автомобили через запятую: Toyota Crown, Toyota Mark II" value="{{ $part->models }}">
+                                                                </div>
+                                                            </div>
+                                                            
                                                             <!--
                                                             <div class="form-group">
                                                                 <label for="main_description" class="col-sm-2 control-label">Основное описание: <span class="text-lightred text-md"></span></label>

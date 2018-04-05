@@ -161,6 +161,7 @@
 											  </tbody>
                                             </table>
                                         </div>
+                                        {{ $parts->links() }}
 
                                     </div>
                                     <!-- /tile body -->
