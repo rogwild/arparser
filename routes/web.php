@@ -34,6 +34,8 @@ Route::get('/parsers/cars/{id}', 'ParserController@CarPage')->name('car.page');
 //страница с таблицей деталей
 Route::get('admin/parts-table', 'ParserController@PartsTable')->name('parts.table');
 Route::get('/admin/parts/{id}', 'ParserController@IndexPartPage')->name('part.page');
+//Очистка окончания от *Подходит для большинства автомобилей! бла-бла-бла...*
+Route::get('/admin/part/clearend', 'ParserController@ClearEnd')->name('part.clearend');
 Route::post('/admin/parts/{id}/edit', 'ParserController@PartEdit')->name('part.edit');
 //Route::get('/parsers/parts/{id}/updatetranslation', 'ParserController@UpdateTranslation');
 Route::get('/admin/parts/{id}/delete', 'ParserController@PartDelete')->name('part.delete');

@@ -18,6 +18,9 @@
 			В продаже:
 			</strong><br /><em>
 			{{ $part->titleOfAd }} в Санкт-Петербурге. </em>&nbsp;Новый!</p>
+			@if ($part->avito_category == 22)
+				{{ $part->main_description }}
+			@endif
 			<p>
 				@if ($part->part_description !== NULL)
 					{{ $part->part_description }}<br />

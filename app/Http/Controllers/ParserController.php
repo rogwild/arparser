@@ -518,6 +518,35 @@ class ParserController extends Controller
 		}
     }
 	
+	//Удалить окончание описания *Подходит для большинства автомобилей! бла-бла-бла...*
+    public function ClearEnd()
+    {
+		//Можно только залогиненым адменам
+		if (Auth::check() and Auth::user()->type == 'admin') {
+			//Находим все товары с категорией Тюнинг
+			$parts = Part::where('avito_category','22')->get();
+			
+			//Для каждого товара применяем правило
+			foreach ($parts as $part) {
+				//Если есть слово *автомобилей*
+				if (strpos($part->main_description, 'автомобилей') !== false) {
+					//Получаем значение описания
+					$description = $part->main_description;
+					//Удаляем все полсле слова *автомобилей*
+					$part->main_description = preg_replace("!(?<=автомобилей).+!is", "", $description);
+					//$Сохраняем
+					$part->save();
+				}
+			}
+			//Выполнено
+			echo 'Готово';
+		}
+		else {
+			//Гоу хоум
+			return redirect('/login');
+		}
+    }
+	
 	//Страница из БД
     public function IndexPartPage($id, Part $part)
     {
