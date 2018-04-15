@@ -17595,3 +17595,7 @@ hr.line-full {
     opacity: 1;
   }
 }
+
+body, a {
+	font-family: 'Montserrat', sans-serif !important;
+}

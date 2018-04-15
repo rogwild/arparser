@@ -22,6 +22,7 @@
         ================= Stylesheets ===================
         ============================================= -->
         <!-- vendor css files -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('assets/css/vendor/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/vendor/animate.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/vendor/font-awesome.min.css') }}">

@@ -193,18 +193,11 @@
                                                                     <input type="text" class="form-control" id="title" name="newTitle" placeholder="Item Name" value="{{ $part->titleOfAd }}">
                                                                 </div>
                                                             </div>
-                                                            
-                                                            <div class="form-group">
-                                                                <label for="image" class="col-sm-2 control-label">Ссылка на картинку: <span class="text-lightred text-md">*</span></label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="text" class="form-control" id="image" name="newImage" placeholder="Item Name" value="{{ $part->image }}">
-                                                                </div>
-                                                            </div>
                                                                
 														   <div class="form-group">
-                                                                <label for="image" class="col-sm-2 control-label">Ссылка на картинку: <span class="text-lightred text-md">*</span></label>
+                                                               <label for="newFile" class="col-sm-2 control-label">Картинка: <span class="text-lightred text-md">*</span></label>
                                                                 <div class="col-sm-10">
-                                                                    <input type="text" class="form-control" id="image" name="newImage" placeholder="Item Name" value="{{ $part->image }}">
+                                                                    <input id="newFile" type="file" name="newFile" multiple>
                                                                 </div>
                                                             </div>
                                                                

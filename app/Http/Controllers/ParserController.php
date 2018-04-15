@@ -606,7 +606,7 @@ class ParserController extends Controller
 			if ($user -> type == 'admin') {
 				$part = Part::find($id);
 				$newTitle = $request['newTitle'];
-				$newImage = $request['newImage'];
+				//$newImage = $request['newImage'];
 				$newFile = $request['newFile'];
 				//Начало Редактирование списка автомобилей
 				$models = $request['models']; //получаем значения моделей из request
@@ -643,10 +643,10 @@ class ParserController extends Controller
 					$part->titleOfAd=$newTitle;
 						$part->save();
 				}
-				if ($newImage != NULL) {
+				/*if ($newImage != NULL) {
 					$part->image=$newImage;
 						$part->save();
-				}
+				}*/
 				/*if ($newModels != NULL) {
 					$part->models=$models;
 						$part->save();
@@ -697,7 +697,7 @@ class ParserController extends Controller
 					Storage::disk('local')->put('public/'.$image_name, File::get($newFile));
 					$link = env('APP_URL').Storage::disk('local')->url('public/'.$image_name);
 					$part->image=$link;
-						$part->save();
+					$part->save();
 				}
 				return redirect()->back();
 			}
