@@ -132,6 +132,7 @@
 																	</th>-->
 																	<th style="width:90px;">Картинка</th>
 																	<th>Название</th>
+																	<th>Описание и модели</th>
 																</tr>
 																</thead>
 																<tbody>
@@ -145,11 +146,22 @@
 																		  </small>
 																	  </a>
 																  </td>
+																  <td>
+																	  	@if ($product->description != NULL)
+																	  	<small>
+																			<b>Описание:</b> {{ $product->description }}
+																		</small><br/>
+																		@endif
+																	  <small>
+																		<b>Модели:</b> {{ $product->models }}
+																	  </small><br/>
+																  </td>
 																</tr>
 																@endforeach
 															  </tbody>
 															</table>
 														</div>
+														{{ $parts->links() }}
 
 													</div>
 													<!-- /tile body -->
@@ -353,6 +365,7 @@
 															  </tbody>
 															</table>
 														</div>
+														{{ $parts->links() }}
 
 													</div>
 													<!-- /tile body -->
