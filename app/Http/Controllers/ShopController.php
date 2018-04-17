@@ -24,8 +24,8 @@ class ShopController extends Controller
 			$user = Auth::user()->id;
 			if (Auth::user()->type == 'admin') {
 				$shop = Shop::find($shopId);
-				$products = Product::where('shop_id',$shop->id)->orderBy('created_at', 'desc')->paginate(40);
-				$parts = Part::orderBy('created_at', 'desc')->paginate(40);
+				$products = Product::where('shop_id',$shop->id)->orderBy('created_at', 'desc')->paginate(10);
+				$parts = Part::orderBy('created_at', 'desc')->paginate(10);
 				foreach ($parts as $part) {
 					$models = $part->models;
 					$models = explode(',', $models);
