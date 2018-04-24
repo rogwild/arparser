@@ -624,7 +624,7 @@ class ParserController extends Controller
 					$tableCar->save();
 					array_push($alias_models, $alias); //добавляем в конец массива алиас модели
 				}
-				$part->models = implode(",", $alias_models);
+				$part->models = implode(", ", $alias_models);
 				$part->save();
 				//Конец Редактирвоания списка автомобилей
 				$newCategory = $request['newCategory'];
