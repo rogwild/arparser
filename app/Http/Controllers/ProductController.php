@@ -103,7 +103,7 @@ class ProductController extends Controller
 					$tableCar->save();
 					array_push($alias_models, $alias); //добавляем в конец массива алиас модели
 				}
-				$product->models = implode(",", $alias_models);
+				$product->models = implode(", ", $alias_models);
 				$product->save();
 			}
 			$image = $request['image'];
@@ -152,7 +152,7 @@ class ProductController extends Controller
 					$tableCar->save();
 					array_push($alias_models, $alias); //добавляем в конец массива алиас модели
 				}
-				$product->models = implode(",", $alias_models);
+				$product->models = implode(", ", $alias_models);
 				$product->save();
 				
 				$image = $request['image'];
