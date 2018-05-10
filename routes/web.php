@@ -77,6 +77,12 @@ Route::post('admin/shop-create-page/create', 'ShopController@ShopCreate')->name(
 Route::get('admin/shops', 'ShopController@ShopsTable')->name('shops.table');
 Route::get('admin/shops/{shop}', 'ShopController@ShopPage')->name('shop.page');
 Route::post('admin/shops/{shop}/edit', 'ShopController@ShopEdit')->name('shop.edit');
+// Страница с таблицей ссылок на запчасти
+Route::get('admin/shops/{shop}/partlink', 'ShopController@PartLinkPage')->name('shop.partlink-page');
+// Страница добавления ссылки
+Route::get('admin/shops/{shop}/partlink/add', 'ShopController@AddPartLinkPage')->name('shop.add-partlink-page');
+// Роут создания ссылки
+Route::post('admin/shop/{shop}/partlink/create', 'ShopController@CreatePartLinkPage')->name('shop.create-partlink-page');
 
 
 

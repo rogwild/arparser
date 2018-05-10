@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductsTable extends Migration
+class CreatePartLinksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,13 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
-            $table->engine = "InnoDB";
+        Schema::create('part_links', function (Blueprint $table) {
+			$table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('name');
-			$table->string('category_id')->nullable();
 			$table->integer('shop_id')->unsigned();
 			$table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
-			$table->boolean('visibility')->default(true);
-			$table->string('image')->default(0);
-			$table->string('link')->nullable();
-			$table->text('description')->nullable();
-			$table->text('models')->nullable();
-			$table->text('meta')->nullable();
-			$table->integer('price')->nullable();
+			$table->text('link');
+			$table->text('title');
             $table->timestamps();
         });
     }
@@ -38,6 +31,6 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('part_links');
     }
 }

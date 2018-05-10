@@ -11,6 +11,7 @@ use App\Shop;
 use App\Product;
 use App\Keyword;
 use App\Category;
+use App\PartLink;
 use Storage;
 use File;
 use DateTime;
@@ -55,6 +56,74 @@ class ShopController extends Controller
     {
 		if (Auth::check() and Auth::user()->type == 'admin') {
 			return view('admin.shop-create-page');
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
+	//Старинца таблицы со ссылками
+    public function PartLinkPage($shopId)
+    {
+		if (Auth::check() and Auth::user()->type == 'admin') {
+			$shop = Shop::find($shopId);
+			$links = PartLink::where('shop_id', $shopId)->orderBy('created_at', 'desc')->get();
+			return view('admin.shop-partlink-page', compact('links', 'shop'));
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
+	//Старинца созадния ссылки на DROM
+    public function AddPartLinkPage($shopId)
+    {
+		if (Auth::check() and Auth::user()->type == 'admin') {
+			$shop = Shop::find($shopId);
+			$action = action('ShopController@CreatePartLinkPage', [$shop->id]);
+			return view('admin.shop-add-partlink-page', compact('shop', 'action'));
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
+	//Создать ссылку на DROM
+    public function CreatePartLinkPage($shopId, Request $request)
+    {
+		if (Auth::check() and Auth::user()->type == 'admin') {
+			$shop = Shop::find($shopId);
+			
+			$drompage = $request['html'];
+			$i = 1;
+			while($i<55) {
+				// Получем ссылку на магазин и добавляем в конце необходимое окончание
+				$page_name =$drompage.'/sell_spare_parts/?page='.$i;
+				// Отобразить ссылку
+				print($page_name).'<br>';
+					//Добавляем ссылку в парсер
+					$page = new \Htmldom($page_name);
+					// Для каждого элмента на странице
+					foreach($page->find('tr.bull-item td.descriptionCell a') as $part) {
+						// Ссылка это индекс href
+						$link = $part->href;
+						print($link).'<br>';
+						// Название это текст в ссылке
+						$title = $part->plaintext;
+						print($title).'<br>';
+						
+						$same = PartLink::where('shop_id', $shop->id)->where('link', $link)->count();
+						if ($same == 0) {
+							$partlink = PartLink::create([
+								'shop_id' =>$shop->id,
+								'title' => $title, 
+								'link' => $link]);
+						}
+					}
+				// Переходим на сделующую страницу
+				$i++;
+			}
+			return redirect()->route('shop.partlink-page', [$shop->id]);
 		}
 		else {
 			return redirect('/login');

@@ -17,4 +17,8 @@ class Shop extends Model
 	public function user() {
 		return $this->belongsTo('App\User');
 	  }
+	
+	public function PartLink() {
+		return $this->hasMany('App\PartLink');
+	  }
 }
