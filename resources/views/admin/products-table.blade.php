@@ -48,7 +48,10 @@
 
                                                 <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
                                                     <li>
-                                                        <a href="{{ route('products.xml', [$shop->id]) }}">Экспортировать в XML</a>
+                                                        <a href="{{ route('products.xml', [$shop->id]) }}">Экспортировать в XML для WordPress</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ route('shop.products-avito-xml', [$shop->id]) }}">Экспортировать в XML для Avito</a>
                                                     </li>
                                                     <!--
                                                     <li role="presentation" class="divider"></li>

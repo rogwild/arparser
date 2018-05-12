@@ -95,7 +95,7 @@
                                                                 <p class="desc text-default lt mb-20">{{ $product->meta }}</p>
                                                                 
                                                                 <p class="short-desc text-sm text-default lt mb-0">Категория:</p>
-                                                                <p class="desc text-default lt mb-20">{{ $nameOfCategory }}</p>
+                                                                <p class="desc text-default lt mb-20">{{ $product->category->name }}</p>
 
                                                                 <p class="tags">
 																	@foreach ($translations as $translation)
@@ -195,12 +195,12 @@
                                                                 </span></label>
                                                                 <div class="col-sm-10">
                                                                     <select tabindex="3" id="category" class="chosen-select" name="category" style="width: 100%;">
-                                                                       <option value="{{ $product->category_id }}">
-																			{{ $nameOfCategory }}
+                                                                       <option value="{{ $product->category->id }}">
+																			{{ $product->category->name }}
 																		</option>
-																	   @foreach ($categories as $category)
-																			<option value="{{ $category->id }}">
-																				{{ $category->name }}
+																	   @foreach ($cats as $cat)
+																			<option value="{{ $cat->id }}">
+																				{{ $cat->name }}
 																			</option>
 																		@endforeach
                                                                     </select>
@@ -208,9 +208,9 @@
                                                             </div>
                                                             
                                                             <div class="form-group">
-                                                                <label for="meta" class="col-sm-2 control-label">Теги (через запятую): <span class="text-lightred text-md">*</span></label>
+                                                                <label for="meta" class="col-sm-2 control-label">Теги (через запятую): <span class="text-lightred text-md"></span></label>
                                                                 <div class="col-sm-10">
-                                                                    <input type="text" class="form-control" id="meta" name="meta" placeholder="Автомобили через запятую Toyota Crown" value="{{ $product->meta }}">
+                                                                    <input type="text" class="form-control" id="meta" name="meta" placeholder="Двигатели через запятую - 1JZ, 2JZ" value="{{ $product->meta }}">
                                                                 </div>
                                                             </div>
                                                             

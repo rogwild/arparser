@@ -136,10 +136,74 @@
                                                                 </div>
                                                             </div>
                                                             
+                                                            
                                                             <div class="form-group">
-                                                               <label for="slug" class="col-sm-2 control-label">На английском через тире без пробелов (camshaft-timing-belt): <span class="text-lightred text-md">*</span></label>
+                                                                <label for="avito" class="col-sm-2 control-label">Авито: <span class="text-lightred text-md">*</span></label>
+                                                                <div class="col-sm-10">
+                                                                    <select tabindex="3" id="avito" class="chosen-select" name="avito" style="width: 95%;">
+																		<option value="{{ $thiscategory->avito }}">
+																			{{ $thiscategory->avito }}
+																		</option>
+																		<option value="11-618">Автосвет</option>
+																		<option value="11-619">Аккумуляторы</option>
+																		<option value="11-621">Запчасти для ТО</option>
+																		<option value="11-623">Подвеска</option>
+																		<option value="11-624">Рулевое управление</option>
+																		<option value="11-625">Салон</option>
+																		<option value="16-521">Система охлаждения</option>
+																		<option value="11-626">Стекла</option>
+																		<option value="11-627">Топливная и выхлопная системы</option>
+																		<option value="11-628">Тормозная система</option>
+																		<option value="11-629">Трансмиссия и привод</option>
+																		<option value="11-630">Электрооборудование</option>
+																		<option value="16-827">Двигатель / Блок цилиндров, головка, картер</option>
+																		<option value="16-828">Двигатель / Вакуумная система</option>
+																		<option value="16-829">Двигатель / Генераторы, стартеры</option>
+																		<option value="16-830">Двигатель / Двигатель в сборе</option>
+																		<option value="16-831">Двигатель / Катушка зажигания, свечи, электрика</option>
+																		<option value="16-832">Двигатель / Клапанная крышка</option>
+																		<option value="16-833">Двигатель / Коленвал, маховик</option>
+																		<option value="16-834">Двигатель / Коллекторы</option>
+																		<option value="16-835">Двигатель / Крепление двигателя</option>
+																		<option value="16-836">Двигатель / Масляный насос, система смазки</option>
+																		<option value="16-837">Двигатель / Патрубки вентиляции</option>
+																		<option value="16-838">Двигатель / Поршни, шатуны, кольца</option>
+																		<option value="16-839">Двигатель / Приводные ремни, натяжители</option>
+																		<option value="16-840">Двигатель / Прокладки и ремкомплекты</option>
+																		<option value="16-841">Двигатель / Ремни, цепи, элементы ГРМ</option>
+																		<option value="16-842">Двигатель / Турбины, компрессоры</option>
+																		<option value="16-843">Двигатель / Электродвигатели и компоненты</option>
+																		<option value="16-805">Кузов / Балки, лонжероны</option>
+																		<option value="16-806">Кузов / Бамперы</option>
+																		<option value="16-807">Кузов / Брызговики</option>
+																		<option value="16-808">Кузов / Двери</option>
+																		<option value="16-809">Кузов / Заглушки</option>
+																		<option value="16-810">Кузов / Замки</option>
+																		<option value="16-811">Кузов / Защита</option>
+																		<option value="16-812">Кузов / Зеркала</option>
+																		<option value="16-813">Кузов / Кабина</option>
+																		<option value="16-814">Кузов / Капот</option>
+																		<option value="16-815">Кузов / Крепления</option>
+																		<option value="16-816">Кузов / Крылья</option>
+																		<option value="16-817">Кузов / Крыша</option>
+																		<option value="16-818">Кузов / Крышка, дверь багажника</option>
+																		<option value="16-819">Кузов / Кузов по частям</option>
+																		<option value="16-820">Кузов / Кузов целиком</option>
+																		<option value="16-821">Кузов / Лючок бензобака</option>
+
+																		<option value="16-822">Кузов / Молдинги, накладки</option>
+																		<option value="16-823">Кузов / Пороги</option>
+																		<option value="16-824">Кузов / Рама</option>
+																		<option value="16-825">Кузов / Решетка радиатора</option>
+																		<option value="16-826">Кузов / Стойка кузова</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="form-group">
+                                                               <label for="slug" class="col-sm-2 control-label">Слаг: <span class="text-lightred text-md"></span></label>
                                                                <div class="col-sm-10">
-                                                                    <input type="text" class="form-control" id="slug" name="slug" placeholder="Введите название категории на английском, заменив пробелы на тирэ -" value="{{ $thiscategory->slug }}">
+                                                                    <input type="text" class="form-control" id="slug" name="slug" placeholder="camshaft-timing-belt" value="{{ $thiscategory->slug }}">
                                                                 </div>
                                                             </div>
                                                             
@@ -147,7 +211,7 @@
                                                                 <label for="parent" class="col-sm-2 control-label">Родительская категория: <span class="text-lightred text-md">
                                                                 </span></label>
                                                                 <div class="col-sm-10">
-                                                                    <select tabindex="3" id="parent" class="chosen-select" name="parent" style="width: 100%;">
+                                                                    <select tabindex="3" id="parent" class="chosen-select" name="parent" style="width: 95%;">
 																		<option value="{{ $thiscategory->parent_id }}">
 																			{{ $nameOfParentCategory }}
 																		</option>
@@ -162,6 +226,15 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
+                                                            
+<!--
+                                                            <div class="form-group">
+                                                               <label for="avito" class="col-sm-2 control-label">Номер категории на avito: <span class="text-lightred text-md"></span></label>
+                                                               <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" id="avito" name="avito" placeholder="Номер категории на Авито" value="{{ $category->avito }}">
+                                                                </div>
+                                                            </div>
+-->
                                                             
                                                             <div class="row">
                                                             	<div class="col-sm-offset-4 col-sm-4 text-center">

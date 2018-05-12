@@ -27,14 +27,14 @@ class ProductController extends Controller
 			$shop = Shop::find($shopId);
 			$product = Product::findOrFail($productId);
 			$models = $product->models;
-			$categories = Category::get();
-			if ($product->category_id != NULL) {
-				$category = Category::find($product->category_id);
-				$nameOfCategory = $category->name;
-			}
-			else {
-				$nameOfCategory = "Категория не назначена";
-			}
+			$cats = Category::get();
+//			if ($product->category_id != NULL) {
+//				$category = Category::find($product->category_id);
+//				$nameOfCategory = $category->name;
+//			}
+//			else {
+//				$nameOfCategory = "Категория не назначена";
+//			}
 			if ($models != NULL) {
 				// получили данные
 				$models = explode(',', $models); //создаем массив из моеделей авто
@@ -50,7 +50,7 @@ class ProductController extends Controller
 				$translations = array();
 			}
 			if ($product->shop_id == $shop->id) {
-				return view('admin.product-page', compact('shop', 'product', 'translations', 'nameOfCategory', 'categories'));
+				return view('admin.product-page', compact('shop', 'product', 'translations', 'cats'));
 			}
 			else {
 				return redirect()->back();
@@ -225,4 +225,6 @@ class ProductController extends Controller
 			return redirect('/login');
 		}
     }
+	
+	
 }

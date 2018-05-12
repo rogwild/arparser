@@ -33,10 +33,11 @@
                                <img src="{{ $shop->image }}" alt="" class="img-thumbnail" style="width:40px;">
                                 <h3>{{ $shop->name }}<strong class="text-greensea"></strong></h3>
                                 <span class="controls pull-right">
-                                  <!--<a href="shop-products.html" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20 mr-5" data-toggle="tooltip" title="Back"><i class="fa fa-times"></i></a>
-                                  <a href="javascript:;" class="btn btn-ef btn-ef-1 btn-ef-1-success btn-ef-1a btn-rounded-20 mr-5" data-toggle="tooltip" title="Save"><i class="fa fa-check"></i></a>
-                                  <a href="javascript:;" class="btn btn-ef btn-ef-1 btn-ef-1-danger btn-ef-1a btn-rounded-20 mr-5" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>-->
-                                  <a href="{{ route('product.create.page',[$shop->id]) }}" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20 mr-5" data-toggle="tooltip" title="Добавить товар"><i class="fa fa-plus"></i></a>
+<!--                                  <a href="shop-products.html" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20 mr-5" data-toggle="tooltip" title="Back"><i class="fa fa-times"></i></a>-->
+                                  <a href="{{ route('shop.partlink-page', [$shop->id]) }}" class="btn btn-primary btn-rounded-20 btn-ef btn-ef-5 btn-ef-5a mb-10"><i class="fa fa-link"></i> <span>Ссылки на Дром</span></a>
+                                  <a href="{{ route('product.create.page',[$shop->id]) }}" class="btn btn-success btn-rounded-20 btn-ef btn-ef-5 btn-ef-5a mb-10"><i class="fa fa-plus"></i> <span>Добавить товар</span></a>
+<!--                                  <a href="javascript:;" class="btn btn-ef btn-ef-1 btn-ef-1-danger btn-ef-1a btn-rounded-20 mr-5" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>-->
+<!--                                  <a href="{{ route('product.create.page',[$shop->id]) }}" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20 mr-5" data-toggle="tooltip" title="Добавить товар"><i class="fa fa-plus"></i></a>-->
                                 </span>
                             </div>
 
@@ -74,7 +75,10 @@
 
 																<ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
 																	<li>
-																		<a href="{{ route('products.xml', [$shop->id]) }}">Экспортировать в XML</a>
+																		<a href="{{ route('products.xml', [$shop->id]) }}">Экспортировать в XML для WP</a>
+																	</li>
+																	<li>
+																		<a href="{{ route('shop.products-avito-xml', [$shop->id]) }}">Экспортировать в XML для Avito</a>
 																	</li>
 																	<!--
 																	<li role="presentation" class="divider"></li>
@@ -161,7 +165,7 @@
 															  </tbody>
 															</table>
 														</div>
-														{{ $parts->links() }}
+														{{ $products->links() }}
 
 													</div>
 													<!-- /tile body -->

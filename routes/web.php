@@ -81,8 +81,14 @@ Route::post('admin/shops/{shop}/edit', 'ShopController@ShopEdit')->name('shop.ed
 Route::get('admin/shops/{shop}/partlink', 'ShopController@PartLinkPage')->name('shop.partlink-page');
 // Страница добавления ссылки
 Route::get('admin/shops/{shop}/partlink/add', 'ShopController@AddPartLinkPage')->name('shop.add-partlink-page');
+// Роут добавления запчасти в магазин
+Route::get('admin/shops/{shop}/partlink/{partlink}/add-to-shop', 'ShopController@AddToShopPartLink')->name('shop.add-to-shop-partlink');
+// Роут добавления всех запчастей в магазин
+Route::get('admin/shops/{shop}/all-partlink/add-to-shop', 'ShopController@AddToShopAllPartLink')->name('shop.add-to-shop-all-partlink');
 // Роут создания ссылки
 Route::post('admin/shop/{shop}/partlink/create', 'ShopController@CreatePartLinkPage')->name('shop.create-partlink-page');
+// Страница получения XML с товарами
+Route::get('admin/shops/{shop}/products-avito-xml', 'ShopController@AvitoXML')->name('shop.products-avito-xml');
 
 
 

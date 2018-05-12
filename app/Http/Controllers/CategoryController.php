@@ -57,6 +57,7 @@ class CategoryController extends Controller
 			$name=$request['name'];
 			$slug=$request['slug'];
 			$parent_id=$request['parent'];
+			$avito = $request['avito'];
 			$category = Category::create([
 					'name' => $name, 
 					'slug' => $slug,
@@ -79,6 +80,7 @@ class CategoryController extends Controller
 					$category->name = $request['name'];
 					$category->slug = $request['slug'];
 					$category->parent_id = $request['parent'];
+					$category->avito = $request['avito'];
 					$category->save();
 				return redirect()->back();
 			}

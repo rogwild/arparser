@@ -22,7 +22,7 @@
                                     <a href="{{ route('shop.page', [$shop->id]) }}">Магазин</a>
                                 </li>
                                 <li>
-                                    <a href="#">Создать ссылку на запчасть</a>
+                                    <a href="#">Добавить ссылку на магазин</a>
                                 </li>
                             </ul>
                             
@@ -80,19 +80,44 @@
 
                                     <form method='POST' action='{{ $action }}' class="form-horizontal" role="form" enctype="multipart/form-data">
                                         {{ csrf_field() }}
-
+                                        
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">{{ $shop->name }}</label>
-                                            <div class="col-sm-10">
-                                                <div class="input-group">
-                                                    <input name="html" type="text" class="form-control">
-													<span class="input-group-btn">
-														<button class="btn btn-default" type="submit">Начать</button>
-													</span>
-                                                </div>
-
-                                            </div>
-                                        </div>
+											<label for="name" class="col-sm-2 control-label">{{ $shop->name }}: <span class="text-lightred text-md">*</span></label>
+											<div class="col-sm-10">
+												<input name="html" type="text" required class="form-control" placeholder="https://baza.drom.ru/user/{{ $shop->name }}">
+												<span class="help-block mb-0">{{ $description }}</span>
+											</div>
+										</div>
+										<hr class="line-dashed line-full">
+									  <div class="row">
+									  	<div class="col-sm-offset-2 col-sm-8">
+									  		<p>
+									  			<strong>Границы работы парсера</strong>
+									  		</p>
+									  	</div>
+									  </div>
+                                   
+                                   		<div class="form-group">
+											<label for="startpage" class="col-sm-2 control-label">Начать со страницы: <span class="text-lightred text-md"></span></label>
+											<div class="col-sm-10">
+												<input name="startpage" type="nubmer" class="form-control" placeholder="5">
+												<span class="help-block mb-0">Парсер начнет работать с этой страницы</span>
+											</div>
+										</div>
+                                   
+                                   <div class="form-group">
+											<label for="endpage" class="col-sm-2 control-label">До страницы: <span class="text-lightred text-md"></span></label>
+											<div class="col-sm-10">
+												<input name="endpage" type="nubmer" class="form-control" placeholder="19">
+												<span class="help-block mb-0">Парсер закончит работать на этой странице</span>
+											</div>
+										</div>
+                                    
+										<div class="row">
+											<div class="col-sm-offset-4 col-sm-4 text-center">
+												<button type="submit" class="btn btn-ef btn-ef-1 btn-ef-1-success btn-ef-1b mb-10">Начать</button>
+											</div>
+										</div>
 
                                     </form>
 

@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
 			$table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
 			$table->boolean('visibility')->default(true);
 			$table->string('image')->default(0);
-			$table->string('link')->nullable();
+			$table->text('link')->nullable();
 			$table->text('description')->nullable();
 			$table->text('models')->nullable();
 			$table->text('meta')->nullable();

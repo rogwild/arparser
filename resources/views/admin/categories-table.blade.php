@@ -105,6 +105,7 @@
                                                     <th>id</th>
                                                     <th>Название</th>
                                                     <th>Родительская категория</th>
+                                                    <th>Авито</th>
                                                     <th></th>
                                                 </tr>
                                                 </thead>
@@ -114,6 +115,7 @@
 														  <td>{{ $category->id }}</td>
 														  <td>{{ $category->name }}</td>
 														  <td>{{ $category->parent_id }}</td>
+														  <td>{{ $category->avito }}</td>
 														  <td><a href="{{ route('category.page', [$category->id]) }}" class="btn btn-default btn-xs">ИЗМЕНИТЬ</a></td>
 														</tr>
 													  @endforeach

@@ -51,24 +51,26 @@
                                             <li class="dropdown">
 
                                                 <a role="button" tabindex="0" class="dropdown-toggle" data-toggle="dropdown">Инструменты <i class="fa fa-angle-down ml-5"></i></a>
-												<!--
+												
                                                 <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
                                                     <li>
-                                                        <a href="{{ route('xml') }}">Экспортировать в XML</a>
+                                                        <a href="{{ route('shop.add-partlink-page', [$shop->id]) }}">Импортировать ссылки</a>
                                                     </li>
                                                     
+<!--
                                                     <li role="presentation" class="divider"></li>
                                                     <li>
                                                         <a href>Печать счетов-фактур</a>
                                                     </li>
+-->
 
-                                                </ul>-->
+                                                </ul>
 
                                             </li>
                                             <li class="dropdown">
 
-                                                <a href="{{ route('shop.add-partlink-page', [$shop->id]) }}">
-                                                    <i class="fa fa-cog"></i>
+                                                <a href="{{ route('shop.add-to-shop-all-partlink', [$shop->id]) }}">
+                                                    <i class="fa fa-flash"></i>
                                                 </a>
 
                                                 <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
@@ -113,13 +115,13 @@
 														<tr>
 														  <td>{{ $link->title }}</td>
 														  <td>{{ $link->link }}</td>
-														  <td><a href="#" class="btn btn-default btn-xs">ДОБАВИТЬ</a></td>
+														  <td><a href="{{ route('shop.add-to-shop-partlink', [$shop->id, $link->id]) }}" class="btn btn-default btn-xs">ДОБАВИТЬ</a></td>
 														</tr>
 													  @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
-
+                                        {{ $links->links() }}
                                     </div>
                                     <!-- /tile body -->
 

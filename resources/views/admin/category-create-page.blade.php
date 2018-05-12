@@ -112,6 +112,13 @@
 
 																</div>
 															</div>
+                                                           
+                                                            <div class="form-group">
+                                                               <label for="avito" class="col-sm-2 control-label">Номер категории на avito: <span class="text-lightred text-md"></span></label>
+                                                               <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" id="avito" name="avito" placeholder="Номер категории на Авито">
+                                                                </div>
+                                                            </div>
                                                             
                                                             <div class="row">
                                                             	<div class="col-sm-offset-4 col-sm-4 text-center">
