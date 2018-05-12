@@ -3,7 +3,7 @@
 	<Ad>
 		<Id>{{ $product->id }}</Id>
 		<Category>Запчасти и аксессуары</Category>
-		<TypeId>{{ $product->category->id }}</TypeId>
+		<TypeId>{{ $product->category->avito }}</TypeId>
 		<CompanyName>{{ $shop->name }}</CompanyName>
 		<ManagerName>Менеджер</ManagerName>
 		<ContactPhone>8 812 407-37-33</ContactPhone>
