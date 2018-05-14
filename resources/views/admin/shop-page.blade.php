@@ -36,6 +36,7 @@
 <!--                                  <a href="shop-products.html" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20 mr-5" data-toggle="tooltip" title="Back"><i class="fa fa-times"></i></a>-->
                                   <a href="{{ route('shop.partlink-page', [$shop->id]) }}" class="btn btn-primary btn-rounded-20 btn-ef btn-ef-5 btn-ef-5a mb-10"><i class="fa fa-link"></i> <span>Ссылки на Дром</span></a>
                                   <a href="{{ route('product.create.page',[$shop->id]) }}" class="btn btn-success btn-rounded-20 btn-ef btn-ef-5 btn-ef-5a mb-10"><i class="fa fa-plus"></i> <span>Добавить товар</span></a>
+                                  <a href="{{ route('extrawords.table', [$shop->id]) }}" class="btn btn-warning btn-rounded-20 btn-ef btn-ef-5 btn-ef-5a mb-10"><i class="fa fa-pen"></i> <span>Лишний текст</span></a>
 <!--                                  <a href="javascript:;" class="btn btn-ef btn-ef-1 btn-ef-1-danger btn-ef-1a btn-rounded-20 mr-5" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>-->
 <!--                                  <a href="{{ route('product.create.page',[$shop->id]) }}" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20 mr-5" data-toggle="tooltip" title="Добавить товар"><i class="fa fa-plus"></i></a>-->
                                 </span>
@@ -79,6 +80,23 @@
 																	</li>
 																	<li>
 																		<a href="{{ route('shop.products-avito-xml', [$shop->id]) }}">Экспортировать в XML для Avito</a>
+																	</li>
+																	<!--
+																	<li role="presentation" class="divider"></li>
+																	<li>
+																		<a href>Печать счетов-фактур</a>
+																	</li>-->
+
+																</ul>
+
+															</li>
+															<li class="dropdown">
+
+																<a role="button" tabindex="0" class="dropdown-toggle" data-toggle="dropdown">Очистка <i class="fa fa-angle-down ml-5"></i></a>
+
+																<ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+																	<li>
+																		<a href="{{ route('product.clean-all', [$shop->id]) }}">Очистить товары от ненужных слов</a>
 																	</li>
 																	<!--
 																	<li role="presentation" class="divider"></li>

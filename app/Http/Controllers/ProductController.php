@@ -11,6 +11,7 @@ use App\Shop;
 use App\Product;
 use App\Keyword;
 use App\Category;
+use App\ExtraWords;
 use Storage;
 use File;
 use DateTime;
@@ -226,5 +227,116 @@ class ProductController extends Controller
 		}
     }
 	
+	// Очистить описание от ненужных слов
+    public function clean($shopId, $productId)
+    {
+		if (Auth::check() and Auth::user()->type == 'admin') {
+			// Нашли магазин
+			$shop = Shop::find($shopId);
+			// Нашли товар
+			$product = Product::find($productId);
+			// Взяли все слова
+			$words = ExtraWords::where('shop_id', $shopId)->get();
+			// Описание из информации о товаре
+			$description = $product->description;
+			// Отобразили
+			print($description).'<br>';
+			// Для каждого слова из словаря
+			foreach ($words as $word) {
+				// Очистим его
+				$text = trim($word->body);
+				// Покажем 
+				print($text).'<br>';
+				// Если найдено соответствие - удалить
+				if (strpos($description, $text) !== false) {
+					$description = str_replace($text, '', $description);
+				}
+			}
+			// Все применимости
+			$models = $product->models;
+			// Если они есть
+			if ($models != NULL) {
+				// Раделим по запятым
+				$models = explode(',', $models);
+				// Для каждой модели
+				foreach ($models as $model) {
+					// Очистим её
+					$model = trim($model);
+					// Найдем её в таблице
+					$car = Car::where('alias', $model)->first();
+					// Получим название
+					$title = $car->title;
+					// Если найдено соответствие - удалить
+					if (strpos($description, $title) !== false) {
+						$description = str_replace($title, '', $description);
+					}
+				}
+			}
+			// Покажем результат
+			print($description);
+			// Занемес в товар
+			$product ->description = $description;
+			// Сохраним товар
+			$product -> save();
+			return redirect()->route('product.page',[$shop->id, $product->id]);
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
+	// Очистить описание от ненужных слов у всех товаров магазина
+    public function cleanAll($shopId)
+    {
+		if (Auth::check() and Auth::user()->type == 'admin') {
+			// Получаем магазин
+			$shop = Shop::find($shopId);
+			// Находим все товары
+			$products = Product::where('shop_id', $shop->id)->get();
+			// И все слова
+			$words = ExtraWords::where('shop_id', $shop->id)->get();
+			// Для каждого товара
+			foreach ($products as $product) {
+				// Напечатаем его номер
+				print($product->id).'<br>';
+				// Описание
+				$description = $product->description;
+				// Тоже выведем
+				print($description).'<br>';
+				// Для каждого слова из словаря
+				foreach ($words as $word) {
+					// очистка
+					$text = trim($word->body);
+					// Вывод
+					print($text).'<br>';
+					// Удаляем ненужное
+					if (strpos($description, $text) !== false) {
+						$description = str_replace($text, '', $description);
+					}
+				}
+				// Тут все должно быть понятно
+				$models = $product->models;
+				if ($models != NULL) {
+					$models = explode(',', $models);
+					foreach ($models as $model) {
+						$model = trim($model);
+						$car = Car::where('alias', $model)->first();
+						$title = $car->title;
+						if (strpos($description, $title) !== false) {
+							$description = str_replace($title, '', $description);
+						}
+					}
+				}
+
+				print($description);
+				$product ->description = $description;
+				$product -> save();
+			}
+			return redirect()->route('shop.page', [$shop->id]);
+		}
+		else {
+			return redirect('/login');
+		}
+    }
 	
 }

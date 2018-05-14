@@ -10,6 +10,7 @@ use App\User;
 use App\Shop;
 use App\Product;
 use App\Keyword;
+use App\ExtraWords;
 use App\Category;
 use App\PartLink;
 use Storage;
@@ -146,6 +147,7 @@ class ShopController extends Controller
 			$enginesToDB = '';
 			$modelsToDB = '';
 			$numbers = '';
+			$text = '';
 			// Подсчет и отображение всех информационных полей
 			foreach ($html->find('.fieldset div.field .label') as $i) {
 				$name = $i->plaintext;
@@ -199,9 +201,17 @@ class ShopController extends Controller
 					print($enginesToDB).'<br>';
 				}
 			}
-			$description = $numbers;
+			// Описание товара
+			if(($html->find('.bulletinText', 0))) {
+				$text = $html->find('.bulletinText', 0)->plaintext;
+			}
+			// Мета теги - двигатели
 			$meta = $enginesToDB;
-			//Добавляем в БД
+			// Описание - текст с описания на дроме
+			$description = trim($text);
+			// Отображение
+			print($description);
+			// Добавляем в БД
 			$link = $partlink->link;
 			$same = Product::where('shop_id', $shop->id)->where('link', $link)->count();
 				if ($same == 0) {
@@ -283,6 +293,7 @@ class ShopController extends Controller
 					$enginesToDB = '';
 					$modelsToDB = '';
 					$numbers = '';
+					$text = '';
 					// Подсчет и отображение всех информационных полей
 					foreach ($html->find('.fieldset div.field .label') as $i) {
 						$name = $i->plaintext;
@@ -336,8 +347,16 @@ class ShopController extends Controller
 							print($enginesToDB).'<br>';
 						}
 					}
-					$description = $numbers;
+					// Описание товара
+					if(($html->find('.bulletinText', 0))) {
+						$text = $html->find('.bulletinText', 0)->plaintext;
+					}
+					// Мета теги - двигатели
 					$meta = $enginesToDB;
+					// Описание - текст с описания на дроме
+					$description = trim($text);
+					// Отображение
+					print($description);
 					//Добавляем в БД
 					$link = $partlink->link;
 					$same = Product::where('shop_id', $shop->id)->where('link', $link)->count();

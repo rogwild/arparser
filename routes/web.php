@@ -68,6 +68,10 @@ Route::get('admin/shops/{shop}/product-create-page', 'ProductController@ProductC
 Route::post('admin/shops/{shop}/product-create-page/create', 'ProductController@ProductCreate')->name('product.create');
 Route::get('admin/shops/{shop}/products', 'ProductController@ProductsTable')->name('products.table');
 Route::get('admin/shops/{shop}/products/{product}', 'ProductController@ProductPage')->name('product.page');
+// Очистить от ненужных слов товар
+Route::get('admin/shops/{shop}/products/{product}/clean', 'ProductController@clean')->name('product.clean');
+//очистить от ненужных слов все товары
+Route::get('admin/shops/{shop}/product/clean-all', 'ProductController@cleanAll')->name('product.clean-all');
 Route::post('admin/shops/{shop}/products/{product}/edit', 'ProductController@ProductEdit')->name('product.edit');
 Route::get('admin/shops/{shop}/products/{product}/delete', 'ProductController@ProductDelete')->name('product.delete');
 Route::get('admin/shops/{shop}/products-xml', 'ProductController@ProductsXML')->name('products.xml');
@@ -90,6 +94,24 @@ Route::post('admin/shop/{shop}/partlink/create', 'ShopController@CreatePartLinkP
 // Страница получения XML с товарами
 Route::get('admin/shops/{shop}/products-avito-xml', 'ShopController@AvitoXML')->name('shop.products-avito-xml');
 
+
+/*
+
+		EXTRA WORDS
+
+*/
+// Страница создания текста
+Route::get('admin/shop/{shop}/extrawords/create', 'ExtraWordsController@create')->name('extrawords.create');
+// Роут создания текста
+Route::post('admin/shop/{shop}/extrawords/store', 'ExtraWordsController@store')->name('extrawords.store');
+// Страница таблицы с текстами
+Route::get('admin/shop/{shop}/extrawords/table', 'ExtraWordsController@index')->name('extrawords.table');
+// Страница таблицы с текстами
+Route::get('admin/shop/{shop}/extraword/{word}', 'ExtraWordsController@show')->name('extrawords.show');
+// Изменение текста
+Route::patch('admin/shop/{shop}/extraword/{word}/update', 'ExtraWordsController@update')->name('extrawords.update');
+//Удаление текста
+Route::delete('admin/shop/{shop}/extraword/{word}/delete', 'ExtraWordsController@delete')->name('extrawords.delete');
 
 
 //Генератор страниц для Arparts
