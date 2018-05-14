@@ -209,6 +209,9 @@ class ShopController extends Controller
 			$meta = $enginesToDB;
 			// Описание - текст с описания на дроме
 			$description = trim($text);
+			if ($numbers != NULL) {
+				$description = $description.'  '.'Номер в каталоге производителя: '.$numbers;
+			}
 			// Отображение
 			print($description);
 			// Добавляем в БД
@@ -355,6 +358,9 @@ class ShopController extends Controller
 					$meta = $enginesToDB;
 					// Описание - текст с описания на дроме
 					$description = trim($text);
+					if ($numbers != NULL) {
+						$description = $description.'  '.'Номер в каталоге производителя: '.$numbers;
+					}
 					// Отображение
 					print($description);
 					//Добавляем в БД

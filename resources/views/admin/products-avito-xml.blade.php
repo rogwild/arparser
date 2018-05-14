@@ -49,7 +49,7 @@
 				<p><strong>Для двигателей: </strong>&nbsp; {{ $product->meta }} <br /><strong>
 			@endif
 			@if ($product->description != NULL)
-				Номер детали: {{ $product->description }}<br />
+				{{ $product->description }}<br />
 			@endif
 			<em>
 			<strong>Более подробную информацию об ОПЛАТЕ и ДОСТАВКЕ в города России и СНГ Вы можете посмотреть на нашем сайте или в соответствующем разделе на сайте Авито.</strong></p>]]>
