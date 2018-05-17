@@ -402,7 +402,14 @@ class ShopController extends Controller
 			}
 			while($i<=$b) {
 				// Получем ссылку на магазин и добавляем в конце необходимое окончание
-				$page_name =$drompage.'/sell_spare_parts/?page='.$i;
+				// если нет названия детали, значит парсим просто магазин
+				if (strpos($drompage, 'sell_spare_parts') !== false) {
+					$page_name =$drompage.'/sell_spare_parts/?page='.$i;
+				}
+				// если в ссылке есть название детали, то парсим категорию с этой запчастью
+				else {
+					$page_name =$drompage.'/?page='.$i;
+				}
 				// Отобразить ссылку
 				print($page_name).'<br>';
 					//Добавляем ссылку в парсер
