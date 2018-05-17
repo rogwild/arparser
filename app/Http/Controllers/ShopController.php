@@ -154,9 +154,9 @@ class ShopController extends Controller
 				print($name).':';
 				if ($name == 'Номера в каталоге производителя') {
 					$parsed_numbers = $html->find('span[data-field=autoPartsNumber]', 0)->plaintext;
-					$parsed_numbers = explode(', ', $parsed_numbers); //разделяем их по зяпятой
-					$numbers = array_slice($parsed_numbers,0, 5); // Берем только 5 штук
-					$numbers = implode(", ", $numbers); //Двигатели, которые пойдут в БД
+					$numbers = explode(', ', $parsed_numbers); //разделяем их по зяпятой
+					$numbers = array_splice($numbers, 5); // Берем только 5 штук
+					$numbers = implode(", ", $numbers); //Номера, которые пойдут в БД
 					print($numbers).'<br>';
 				}
 				if ($name == 'Для моделей') {
@@ -300,8 +300,8 @@ class ShopController extends Controller
 						if ($name == 'Номера в каталоге производителя') {
 							$parsed_numbers = $html->find('span[data-field=autoPartsNumber]', 0)->plaintext;
 							$numbers = explode(', ', $parsed_numbers); //разделяем их по зяпятой
-							$numbersToDB = implode(", ", $numbers); //Номера, которые пойдут в БД
-							$numbersToDB = array_splice($numbersToDB, 5); // Берем только 5 штук
+							$numbers = array_splice($numbers, 5); // Берем только 5 штук
+							$numbers = implode(", ", $numbers); //Номера, которые пойдут в БД
 							print($numbers).'<br>';
 						}
 						if ($name == 'Для моделей') {
