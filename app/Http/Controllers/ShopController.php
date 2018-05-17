@@ -153,7 +153,10 @@ class ShopController extends Controller
 				$name = $i->plaintext;
 				print($name).':';
 				if ($name == 'Номера в каталоге производителя') {
-					$numbers = $html->find('span[data-field=autoPartsNumber]', 0)->plaintext;
+					$parsed_numbers = $html->find('span[data-field=autoPartsNumber]', 0)->plaintext;
+					$parsed_numbers = explode(', ', $parsed_numbers); //разделяем их по зяпятой
+					$numbers = array_slice($parsed_numbers,0, 5); // Берем только 5 штук
+					$numbers = implode(", ", $numbers); //Двигатели, которые пойдут в БД
 					print($numbers).'<br>';
 				}
 				if ($name == 'Для моделей') {
@@ -218,16 +221,9 @@ class ShopController extends Controller
 			$link = $partlink->link;
 			$same = Product::where('shop_id', $shop->id)->where('link', $link)->count();
 				if ($same == 0) {
-					$product = Product::create([	
-						'link' => $link,
-						'shop_id' => $shop->id,
-						'description' => $description,
-						'models' => $modelsToDB,
-						'category_id' => $category, 
-						'name' => $title_promo, 
-						'price' => $price_main,
-						'meta' => $meta,
-						'image' => $image]);
+					
+					$shop->addProduct($link, $description, $modelsToDB, $category, $title_promo, $price_main, $meta, $image);
+					
 				}
 			return redirect()->route('shop.page', [$shop->id]);
 		}
@@ -302,7 +298,10 @@ class ShopController extends Controller
 						$name = $i->plaintext;
 						print($name).':';
 						if ($name == 'Номера в каталоге производителя') {
-							$numbers = $html->find('span[data-field=autoPartsNumber]', 0)->plaintext;
+							$parsed_numbers = $html->find('span[data-field=autoPartsNumber]', 0)->plaintext;
+							$numbers = explode(', ', $parsed_numbers); //разделяем их по зяпятой
+							$numbersToDB = implode(", ", $numbers); //Номера, которые пойдут в БД
+							$numbersToDB = array_splice($numbersToDB, 5); // Берем только 5 штук
 							print($numbers).'<br>';
 						}
 						if ($name == 'Для моделей') {
@@ -367,16 +366,9 @@ class ShopController extends Controller
 					$link = $partlink->link;
 					$same = Product::where('shop_id', $shop->id)->where('link', $link)->count();
 						if ($same == 0) {
-							$product = Product::create([	
-								'link' => $link,
-								'shop_id' => $shop->id,
-								'description' => $description,
-								'models' => $modelsToDB,
-								'category_id' => $category, 
-								'name' => $title_promo, 
-								'price' => $price_main,
-								'meta' => $meta,
-								'image' => $image]);
+							
+							$shop->addProduct($link, $description, $modelsToDB, $category, $title_promo, $price_main, $meta, $image);
+							
 						}
 				}
 				else {
@@ -466,7 +458,8 @@ class ShopController extends Controller
 			$shop = Shop::find($shopId);
 			if ($shop->user_id == Auth::user()->id) {
 				$shop->name=$request['name'];
-				$shop->save();
+				$shop->information=$request['information'];
+				$shop->additional_information=$request['additional_information'];
 				$image = $request['image'];
 				if ($image != NULL) {
 					$image_name = 's_'.$shop->id.'.jpg';
@@ -478,6 +471,7 @@ class ShopController extends Controller
 					$shop->image=$link;
 						$shop->save();
 				}
+				$shop->save();
 				return redirect()->back();
 			}
 			else {

@@ -245,6 +245,24 @@
                                                                 </div>
                                                             </div>
                                                             
+                                                            <div class="form-group">
+                                                                <label for="information" class="col-sm-2 control-label">Основная информация: <span class="text-lightred text-md"></span></label>
+                                                                <div class="col-sm-10">
+                                                                    <textarea class="form-control" rows="5" name="information" id="information" placeholder="Основная информация о магазине">
+                                                                    {{ $shop->information }}
+                                                                    </textarea>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="form-group">
+                                                                <label for="additional_information" class="col-sm-2 control-label">Основная информация: <span class="text-lightred text-md"></span></label>
+                                                                <div class="col-sm-10">
+                                                                    <textarea class="form-control" rows="5" name="additional_information" id="additional_information" placeholder="Дополнительная информация о магазине">
+                                                                    {{ $shop->additional_information }}
+                                                                    </textarea>
+                                                                </div>
+                                                            </div>
+                                                            
                                                             <div class="row">
                                                             	<div class="col-sm-offset-4 col-sm-4 text-center">
 																	<button type="submit" class="btn btn-ef btn-ef-1 btn-ef-1-success btn-ef-1b mb-10">Сохранить</button>

@@ -6,18 +6,24 @@
 		<TypeId>{{ $product->category->avito }}</TypeId>
 		<CompanyName>{{ $shop->name }}</CompanyName>
 		<ManagerName>Менеджер</ManagerName>
-		<ContactPhone>8 812 407-37-33</ContactPhone>
+		<ContactPhone>{{ $shop->phone }}</ContactPhone>
 		<Region>Санкт-Петербург</Region>
 		<Subway>Старая Деревня</Subway>
 		<Title>{{ $product->name }}</Title>
 		<Description>
 			<![CDATA[
-			<p><strong>
-			В <strong>интернет-магазине Arparts</strong> Вы всегда найдете большой ассортимент запасных частей, масел и расходных материалов для автомобилей иностранного производства. Более подробная <strong>ИНФОРМАЦИЯ ОБ ОПЛАТЕ И ДОСТАВКЕ</strong> указана на нашем сайте.
-			</strong><br /><br /><strong>
+			<p>
+				{{ $shop->information }}
+				
+				<br /><br />
+			</p>
+			
+			<p>	
+			<strong>
 			В продаже:
 			</strong><br /><em>
 			<strong>{{ $product->name }}</strong> в Санкт-Петербурге. </em>&nbsp;Новый!</p>
+			
 			<p>
 			<br /><strong>
 			Применимость:
@@ -45,14 +51,36 @@
 					<li>{{ $translation }}</li>
 				@endforeach
 			</ul>
+			</p>
+			
+			<p>
 			@if ($product->meta != NULL)
-				<p><strong>Для двигателей: </strong>&nbsp; {{ $product->meta }} <br /><strong>
+				<p><strong>Для двигателей: </strong>&nbsp; 
+				
+				@php
+					$engines = $product->meta;
+					$engines = explode(',', $engines);
+					array_splice($engines, 5);
+				@endphp
+				@foreach ($engines as $engine)
+					{{ $engine }},
+				@endforeach
+				
+				<br /><strong>
 			@endif
+			</p>
+			
+			<p>
 			@if ($product->description != NULL)
 				{{ $product->description }}<br />
 			@endif
-			<em>
-			<strong>Более подробную информацию об ОПЛАТЕ и ДОСТАВКЕ в города России и СНГ Вы можете посмотреть на нашем сайте или в соответствующем разделе на сайте Авито.</strong></p>]]>
+			</p>
+			
+			<p>
+				<em>
+				{{ $shop->additional_information }}
+				</em>
+			</p>]]>
 		</Description>
 		<Price>{{ $product->price }}</Price>
 		<Images>

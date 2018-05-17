@@ -22,6 +22,8 @@ class CreateShopsTable extends Migration
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 			$table->boolean('visibility')->default(true);
 			$table->string('image')->nullable();
+			$table->text('information')->nullable();
+			$table->text('additional_information')->nullable();
             $table->timestamps();
         });
     }
