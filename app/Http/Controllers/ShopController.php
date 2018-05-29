@@ -158,7 +158,7 @@ class ShopController extends Controller
 				// если нет названия детали, значит парсим просто магазин
 				if (strpos($drompage, 'sell_spare_parts') !== false) {
 					if ($keyword !== NULL) {
-						$page_name =$drompage.'/sell_spare_parts/'.$keyword.'/?page='.$i;
+						$page_name =$drompage.'/sell_spare_parts/?query='.$keyword.'&page='.$i;
 					}
 					else {
 						$page_name =$drompage.'/sell_spare_parts/?page='.$i;
@@ -167,7 +167,7 @@ class ShopController extends Controller
 				// если в ссылке есть название детали, то парсим категорию с этой запчастью
 				else {
 					if ($keyword !== NULL) {
-						$page_name =$drompage.'/sell_spare_parts/'.$keyword.'/?page='.$i;
+						$page_name =$drompage.'/sell_spare_parts/?query='.$keyword.'&page='.$i;
 					}
 					else {
 						$page_name =$drompage.'/?page='.$i;
