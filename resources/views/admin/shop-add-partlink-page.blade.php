@@ -112,6 +112,14 @@
 												<span class="help-block mb-0">Парсер закончит работать на этой странице</span>
 											</div>
 										</div>
+                                   
+                                   <div class="form-group">
+											<label for="keyword" class="col-sm-2 control-label">Ключевое слово: <span class="text-lightred text-md"></span></label>
+											<div class="col-sm-10">
+												<input name="keyword" type="text" class="form-control" placeholder="{{ $shop->name }} |">
+												<span class="help-block mb-0">Это слово должно присутствовать в названии</span>
+											</div>
+										</div>
                                     
 										<div class="row">
 											<div class="col-sm-offset-4 col-sm-4 text-center">
