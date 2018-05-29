@@ -185,7 +185,7 @@ class ProductController extends Controller
 			if ($user -> type == 'admin') {
 				if ($product->shop_id == $shop->id) {
 					$product->delete();
-					return redirect()->route('products.table',['id' => $shop->id]);
+					return redirect()->route('shop.page',['id' => $shop->id]);
 				}
 				else {
 					return redirect()->back();

@@ -155,6 +155,7 @@
 																	<th style="width:90px;">Картинка</th>
 																	<th>Название</th>
 																	<th>Описание и модели</th>
+																	<th></th>
 																</tr>
 																</thead>
 																<tbody>
@@ -177,6 +178,11 @@
 																	  <small>
 																		<b>Модели:</b> {{ $product->models }}
 																	  </small><br/>
+																  	
+																  </td>
+																  <td>
+																  	<a href="{{ route('product.delete',[$shop->id, $product->id]) }}" class="btn btn-sm btn-danger"> Удалить </a>
+																  	
 																  </td>
 																</tr>
 																@endforeach
