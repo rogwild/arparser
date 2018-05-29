@@ -117,7 +117,7 @@
 											<label for="keyword" class="col-sm-2 control-label">Ключевое слово: <span class="text-lightred text-md"></span></label>
 											<div class="col-sm-10">
 												<input name="keyword" type="text" class="form-control" placeholder="{{ $shop->name }} |">
-												<span class="help-block mb-0">Это слово должно присутствовать в названии</span>
+												<span class="help-block mb-0">По этому слову бцдет производиться поиск, в формате UNICODE (%EA%EE%EC%EF%F0%E5%F1%F1%EE%F0)</span>
 											</div>
 										</div>
                                     

@@ -183,7 +183,7 @@ class Shop extends Model
 		// Добавляем в БД
 		$link = $partlink->link;
 		$same = Product::where('shop_id', $shop->id)->where('link', $link)->count();
-			if ($same == 0) {
+			if ($same == 0 and $image != NULL) {
 
 				$shop->addProduct($link, $description, $modelsToDB, $category, $title_promo, $price_main, $meta, $image);
 

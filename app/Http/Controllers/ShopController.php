@@ -157,11 +157,21 @@ class ShopController extends Controller
 				// Получем ссылку на магазин и добавляем в конце необходимое окончание
 				// если нет названия детали, значит парсим просто магазин
 				if (strpos($drompage, 'sell_spare_parts') !== false) {
-					$page_name =$drompage.'/sell_spare_parts/?page='.$i;
+					if ($keyword !== NULL) {
+						$page_name =$drompage.'/sell_spare_parts/'.$keyword.'/?page='.$i;
+					}
+					else {
+						$page_name =$drompage.'/sell_spare_parts/?page='.$i;
+					}
 				}
 				// если в ссылке есть название детали, то парсим категорию с этой запчастью
 				else {
-					$page_name =$drompage.'/?page='.$i;
+					if ($keyword !== NULL) {
+						$page_name =$drompage.'/sell_spare_parts/'.$keyword.'/?page='.$i;
+					}
+					else {
+						$page_name =$drompage.'/?page='.$i;
+					}
 				}
 				// Отобразить ссылку
 				print($page_name).'<br>';
@@ -176,21 +186,11 @@ class ShopController extends Controller
 						$title = $part->plaintext;
 						print($title).'<br>';
 						$same = PartLink::where('shop_id', $shop->id)->where('link', $link)->count();
-						if ($keyword !== NULL) {
-							if ($same == 0 and strpos($title, $keyword) !== false) {
-								$partlink = PartLink::create([
-									'shop_id' =>$shop->id,
-									'title' => $title, 
-									'link' => $link]);
-							}
-						}
-						else {
-							if ($same == 0) {
-								$partlink = PartLink::create([
-									'shop_id' =>$shop->id,
-									'title' => $title, 
-									'link' => $link]);
-							}
+						if ($same == 0) {
+							$partlink = PartLink::create([
+								'shop_id' =>$shop->id,
+								'title' => $title, 
+								'link' => $link]);
 						}
 					}
 				// Переходим на сделующую страницу
