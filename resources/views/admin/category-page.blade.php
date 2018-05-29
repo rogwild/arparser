@@ -145,6 +145,10 @@
 																			{{ $thiscategory->avito }}
 																		</option>
 																		<option value="11-618">Автосвет</option>
+																		<option value="22">Тюнинг</option>
+																		<option value="4-943">Аксессуары</option>
+																		<option value="4-963">Инструменты</option>
+																		<option value="6-416">Экипировка</option>
 																		<option value="11-619">Аккумуляторы</option>
 																		<option value="11-621">Запчасти для ТО</option>
 																		<option value="11-623">Подвеска</option>
