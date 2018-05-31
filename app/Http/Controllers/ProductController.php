@@ -12,6 +12,7 @@ use App\Product;
 use App\Keyword;
 use App\Category;
 use App\ExtraWords;
+use App\PartLink;
 use Storage;
 use File;
 use DateTime;
@@ -184,6 +185,11 @@ class ProductController extends Controller
 			$product = Product::findOrFail($productId);
 			if ($user -> type == 'admin') {
 				if ($product->shop_id == $shop->id) {
+					$exist = PartLink::where('link', $product->link)->count();
+					if ($exist != 0) {
+						$partlink = PartLink::where('link', $product->link)->first();
+						$partlink->delete();
+					}
 					$product->delete();
 					return redirect()->route('shop.page',['id' => $shop->id]);
 				}

@@ -181,6 +181,7 @@
 																  	
 																  </td>
 																  <td>
+															  	
 																  	<a href="{{ route('product.delete',[$shop->id, $product->id]) }}" class="btn btn-sm btn-danger"> Удалить </a>
 																  	
 																  </td>
