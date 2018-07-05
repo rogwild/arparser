@@ -245,6 +245,8 @@ class ProductController extends Controller
 			$words = ExtraWords::where('shop_id', $shopId)->get();
 			// Описание из информации о товаре
 			$description = $product->description;
+			// Название товара
+			$title_of_product = $product->name;
 			// Отобразили
 			print($description).'<br>';
 			// Для каждого слова из словаря
@@ -253,9 +255,13 @@ class ProductController extends Controller
 				$text = trim($word->body);
 				// Покажем 
 				print($text).'<br>';
-				// Если найдено соответствие - удалить
+				// Если найдено соответствие в описании - удалить
 				if (strpos($description, $text) !== false) {
 					$description = str_replace($text, '', $description);
+				}
+				// Если найдено соответствие в названии - удалить
+				if (strpos($title_of_product, $text) !== false) {
+					$title_of_product = str_replace($text, '', $title_of_product);
 				}
 			}
 			// Все применимости
@@ -280,8 +286,10 @@ class ProductController extends Controller
 			}
 			// Покажем результат
 			print($description);
-			// Занемес в товар
+			// Занемена в товар
 			$product ->description = $description;
+			// Занемена в товар
+			$product ->name = $title_of_product;
 			// Сохраним товар
 			$product -> save();
 			return redirect()->route('product.page',[$shop->id, $product->id]);
@@ -307,6 +315,8 @@ class ProductController extends Controller
 				print($product->id).'<br>';
 				// Описание
 				$description = $product->description;
+				// Название товара
+				$title_of_product = $product->name;
 				// Тоже выведем
 				print($description).'<br>';
 				// Для каждого слова из словаря
@@ -318,6 +328,10 @@ class ProductController extends Controller
 					// Удаляем ненужное
 					if (strpos($description, $text) !== false) {
 						$description = str_replace($text, '', $description);
+					}
+					// Если найдено соответствие в названии - удалить
+					if (strpos($title_of_product, $text) !== false) {
+						$title_of_product = str_replace($text, '', $title_of_product);
 					}
 				}
 				// Тут все должно быть понятно
@@ -336,6 +350,8 @@ class ProductController extends Controller
 
 				print($description);
 				$product ->description = $description;
+				// Занемена в товар
+				$product ->name = $title_of_product;
 				$product -> save();
 			}
 			return redirect()->route('shop.page', [$shop->id]);

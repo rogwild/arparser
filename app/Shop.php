@@ -170,7 +170,7 @@ class Shop extends Model
 		
 		$titleOfAd = $title.$firstMark.$firstEngines; //создаем название
 		$titleOfAd = trim($titleOfAd);
-		$title_promo = $titleOfAd;
+		$title_promo = $title_promo;
 		// Мета теги - двигатели
 		$meta = $enginesToDB;
 		// Описание - текст с описания на дроме
