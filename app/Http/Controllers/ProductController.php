@@ -361,4 +361,59 @@ class ProductController extends Controller
 		}
     }
 	
+	// Присвоить начальное описание
+    public function OriginalName($shopId, $productId)
+    {
+		if (Auth::check() and Auth::user()->type == 'admin') {
+			// Нашли магазин
+			$shop = Shop::find($shopId);
+			// Нашли товар
+			$product = Product::find($productId);
+			// Добавляем в парсер
+			$html = new \Htmldom($product->link);
+			// Копируем название
+			$title_promo=$html->find('h1.subject span', 0)->plaintext;
+			// Занемена в товар
+			$product ->name = $title_promo;
+			// Сохраним товар
+			$product -> save();
+			return redirect()->route('product.page',[$shop->id, $product->id]);
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
+	// Присвоить начальное описание
+    public function AllOriginalName($shopId, $startId)
+    {
+		if (Auth::check() and Auth::user()->type == 'admin') {
+			// Нашли магазин
+			$shop = Shop::find($shopId);
+			// Находим все товары
+			$products = Product::where('shop_id', $shop->id)->where('id', '>=', $startId)->get();
+			// Функция под каждый товар
+			foreach ($products as $product) {
+				// Добавляем в парсер
+				if ($product->link !== NULL) {
+					print $product->id;
+					print $product->name;
+					$html = new \Htmldom($product->link);
+					if (($html->find('h1.subject span', 0))) {
+						// Копируем название
+						$title_promo=$html->find('h1.subject span', 0)->plaintext;
+						// Занемена в товар
+						$product ->name = $title_promo;
+						// Сохраним товар
+						$product -> save();
+					}
+				}
+			}
+			return redirect()->route('shop.page',[$shop->id]);
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
 }

@@ -181,6 +181,8 @@
 																  	
 																  </td>
 																  <td>
+																  
+																  	<a href="{{ route('product.original-name',[$shop->id, $product->id]) }}" class="btn btn-sm btn-success mb-5"> Обновить </a>
 															  	
 																  	<a href="{{ route('product.delete',[$shop->id, $product->id]) }}" class="btn btn-sm btn-danger"> Удалить </a>
 																  	

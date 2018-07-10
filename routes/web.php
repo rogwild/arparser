@@ -68,6 +68,8 @@ Route::get('admin/shops/{shop}/product-create-page', 'ProductController@ProductC
 Route::post('admin/shops/{shop}/product-create-page/create', 'ProductController@ProductCreate')->name('product.create');
 Route::get('admin/shops/{shop}/products', 'ProductController@ProductsTable')->name('products.table');
 Route::get('admin/shops/{shop}/products/{product}', 'ProductController@ProductPage')->name('product.page');
+// Присвоить товару начальное название
+Route::get('admin/shops/{shop}/products/{product}/original-name', 'ProductController@OriginalName')->name('product.original-name');
 // Очистить от ненужных слов товар
 Route::get('admin/shops/{shop}/products/{product}/clean', 'ProductController@clean')->name('product.clean');
 //очистить от ненужных слов все товары
@@ -93,6 +95,8 @@ Route::get('admin/shops/{shop}/all-partlink/add-to-shop', 'ShopController@AddToS
 Route::post('admin/shop/{shop}/partlink/create', 'ShopController@CreatePartLinkPage')->name('shop.create-partlink-page');
 // Страница получения XML с товарами
 Route::get('admin/shops/{shop}/products-avito-xml', 'ShopController@AvitoXML')->name('shop.products-avito-xml');
+// Присвоить всем товарам начальные названия
+Route::get('admin/shops/{shop}/original-name/{start}', 'ProductController@AllOriginalName')->name('shop.all-original-name');
 
 
 /*
