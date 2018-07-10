@@ -3,6 +3,7 @@
 	<Ad>
 		<Id>{{ $product->id }}</Id>
 		<Category>Запчасти и аксессуары</Category>
+		<AdType>Товар приобретен на продажу</AdType>
 		<TypeId>{{ $product->category->avito }}</TypeId>
 		<CompanyName>{{ $shop->name }}</CompanyName>
 		<ManagerName>Менеджер</ManagerName>
