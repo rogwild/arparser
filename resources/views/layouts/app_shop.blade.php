@@ -12,7 +12,7 @@
     ================= Stylesheets ===================
     ============================================= -->
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic|Raleway:300,400,500,600,700|Open+Sans+Condensed:700" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('shop_assets/css/bootstrap.min.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('shop_assets/css/bootstrap.min.css') }}"  media="all" type="text/css" />
     <link rel="stylesheet" href="{{ asset('shop_assets/css/font-awesome.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('shop_assets/css/animate.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('shop_assets/js/vendor/flexslider/flexslider.css') }}" type="text/css" />
